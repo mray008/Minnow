@@ -4,5 +4,5 @@ import react from '@vitejs/plugin-react-swc'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: "/https://mray008.github.io/Minnow//"
+  base: "https://mray008.github.io/Minnow/"
 })
