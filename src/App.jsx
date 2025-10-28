@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import StudentDashboard from "./StudentDashboard.jsx";
 import EducatorDashboard from "./EducatorDashboard.jsx";
 import AdminDashboard from "./AdminDashboard.jsx";
@@ -7,54 +6,51 @@ import AdminDashboard from "./AdminDashboard.jsx";
 export default function App() {
   const [user, setUser] = useState(null);
 
-  const handleLogin = async (username, password) => {
-    const res = await fetch("https://minnow-backend.onrender.com/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
-    });
+  // Update this with your Render backend URL
+  const BACKEND_URL = "https://minnow.onrender.com";
 
-    if (res.ok) {
-      const data = await res.json();
-      setUser(data); // set logged-in user
-    } else {
-      alert("Invalid credentials");
+  const handleLogin = async (username, password) => {
+    try {
+      const res = await fetch(`${BACKEND_URL}/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setUser(data); // logged-in user
+      } else {
+        const err = await res.json();
+        alert(err.message || "Invalid credentials");
+      }
+    } catch (error) {
+      console.error("Error connecting to backend:", error);
+      alert("Unable to connect to server.");
     }
   };
 
-  // Logout resets the user state
-  const handleLogout = () => {
-    setUser(null);
-  };
+  const handleLogout = () => setUser(null);
 
-  // If not logged in, show login form
-  if (!user) {
-    return <LoginForm onLogin={handleLogin} />;
+  // Show login if not logged in
+  if (!user) return <LoginForm onLogin={handleLogin} />;
+
+  // Show dashboard based on role
+  switch (user.role) {
+    case "student":
+      return <StudentDashboard user={user} onLogout={handleLogout} />;
+    case "educator":
+      return <EducatorDashboard user={user} onLogout={handleLogout} />;
+    case "admin":
+      return <AdminDashboard user={user} onLogout={handleLogout} />;
+    default:
+      return <LoginForm onLogin={handleLogin} />;
   }
-
-  // Logged in: show dashboard based on role
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Navigate to={`/${user.role}`} />} />
-        <Route
-          path="/student"
-          element={<StudentDashboard user={user} onLogout={handleLogout} />}
-        />
-        <Route
-          path="/educator"
-          element={<EducatorDashboard user={user} onLogout={handleLogout} />}
-        />
-        <Route
-          path="/admin"
-          element={<AdminDashboard user={user} onLogout={handleLogout} />}
-        />
-      </Routes>
-    </Router>
-  );
 }
 
+// --------------------
 // Login form component
+// --------------------
 function LoginForm({ onLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
