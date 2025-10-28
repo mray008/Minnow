@@ -1,0 +1,92 @@
+.matching-game {
+  font-family: "Segoe UI", sans-serif;
+  text-align: center;
+  margin: 40px auto;
+  max-width: 700px;
+  background: #92d1cf;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  color: #333;
+}
+
+p {
+  color: #555;
+}
+
+.game-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.column {
+  width: 48%;
+}
+
+.word-card,
+.definition-card {
+  background: #f9f9f9;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: grab;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.word-card:hover {
+  background: #e3f2fd;
+  border-color: #2196f3;
+}
+
+.definition-card {
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.definition-card.matched {
+  background: #c8e6c9;
+  border-color: #2e7d32;
+  color: #2e7d32;
+  font-weight: bold;
+}
+
+.complete-message {
+  margin-top: 30px;
+  font-size: 18px;
+  color: #1976d2;;
+}
+
+.complete-message button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background: #2196f3;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.complete-message button:hover {
+  background: #1976d2;
+}
+/* Correct Drop Effect */
+.definition-card.correct {
+  background: #d0f8ce;
+  border-color: #4caf50;
+  transform: scale(1.05);
+}
+
+/* Incorrect Drop Effect */
+.definition-card.incorrect {
+  background: #ffcdd2;
+  border-color: #f44336;
+  animation: shake 0.3s;
+}
