@@ -1,0 +1,1 @@
+const regex = new RegExp("^(?=.*[A-Z])(?=.*\\d)(?=.[^a-zA-Z0-9]).{8,}$");
