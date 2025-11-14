@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import "./MatchingGame.css";
+// sfx
+import correctpop from "./assets/MinnowSFX/correctpop.wav"
+import incorrectpop from "./assets/MinnowSFX/incorrectpop.wav"
 
 const wordsData = [
   { id: 1, word: "Osmosis", definition: "Movement of water through a semi-permeable membrane." },
@@ -31,6 +34,7 @@ export default function MatchingGame() {
       setMatches((prev) => ({ ...prev, [definition.id]: draggedWord }));
       setWords((prev) => prev.filter((w) => w.id !== draggedWord.id));
       setFeedback((prev) => ({ ...prev, [definition.id]: "correct" }));
+      new Audio(correctpop).play(); // plays good ding
 
       if (Object.keys(matches).length + 1 === wordsData.length) {
         setIsComplete(true);
@@ -38,6 +42,7 @@ export default function MatchingGame() {
     } else {
       // Incorrect match
       setFeedback((prev) => ({ ...prev, [definition.id]: "incorrect" }));
+      new Audio(incorrectpop).play(); // plays bad ding
 
       // Remove feedback after a short delay
       setTimeout(() => {
