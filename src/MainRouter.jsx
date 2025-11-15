@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Login from "./Login.jsx";
 import "./NavBar.css";
 import aquariumBg from './assets/aquarium-bg.avif';
+import AboutUs from "./AboutUs.jsx";
 
 // ✅ NavBar component
 function NavBar() {
@@ -11,7 +13,7 @@ function NavBar() {
         <li><a href="#home">Home</a></li>
         <li><a href="#Courses">Courses</a></li>
         <li><a href="#demo">Games</a></li>
-        <li><a href="#glossary">About Us</a></li>
+        <li><Link to="/about">About Us</Link></li>
         <li><a href="#contact">Register/Login</a></li>
       </ul>
     </nav>
@@ -38,26 +40,38 @@ function Hero({ onLoginClick }) {
 export default function MainRouter() {
   const [showLogin, setShowLogin] = useState(false);
 
-  if (!showLogin) {
-    return (
-      <div className="landing"
-      style={{
-          backgroundImage: `url(${aquariumBg})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-          minHeight: '100vh', // full viewport height
-        }}
-      >
-        <NavBar />
-        <Hero onLoginClick={() => setShowLogin(true)} />
-        <Footer />
-      </div>
-    );
-  }
-
-  return <Login />;
+  return (
+    <Router basename="/Minnow">
+      <NavBar />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            !showLogin ? (
+              <div
+                className="landing"
+                style={{
+                  backgroundImage: `url(${aquariumBg})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  backgroundRepeat: "no-repeat",
+                  minHeight: "100vh",
+                }}
+              >
+                <Hero onLoginClick={() => setShowLogin(true)} />
+                <Footer />
+              </div>
+            ) : (
+              <Login />
+            )
+          }
+        />
+        <Route path="/about" element={<AboutUs />} />
+      </Routes>
+    </Router>
+  );
 }
+
 
 function Footer() {
   return (
