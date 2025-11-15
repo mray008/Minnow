@@ -1,0 +1,80 @@
+body {
+  font-family: 'Dancing Script', cursive;
+}
+
+.navbar {
+  position: fixed;           /* make it stick at the top */
+  top: 10px;                 /* small space from top */
+  width: 100%;
+  background-color: #e6e6fa; /* background color */
+  padding: 10px 0;           /* top & bottom padding */
+  display: flex;             
+  justify-content: space-around; /* spreads items evenly */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  z-index: 1000;
+  margin-top: 0;            
+}
+
+.navbar ul {
+  display: flex;
+  width: 100%;              /* make ul take full width */
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.navbar li {
+  flex: 1;                  /* each link takes equal space */
+  text-align: center;       /* center the link in its space */
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #f8f8f8;
+  font-weight: bold;
+  font-size: 1.2rem;        /* make text bigger */
+}
+
+.navbar a:hover {
+  color: #007bff;
+}
+
+.landing {
+  padding-top: 80px; /* adjust based on navbar height */
+}
+
+.hero h1 {
+  font-size: 3rem;  /* adjust as needed */
+  color: #000;      /* make sure it’s visible */
+  text-align: center;
+  margin-bottom: 20px;
+}
+.hero p {
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.hero-subtext {
+    padding-top: 80px;
+    font-size: 1.5rem !important;  /*dunno why th size wasn't changing so I put the important keyword*/     
+    color: #3B2F2F;              
+    max-width: none;         
+    margin: 10px 0 100px 0;   /* space above and below and sideways */
+    line-height: 1.5;         /* improve readability */
+    font-style: normal;       /* ensure it's not italic */
+}
+
+.footer {
+  padding: 20px 40px;
+  border-top: 1px solid #ddd;
+   margin-top: 100px;
+}
+
+.footer-content p {
+  max-width: 1200px;
+  text-align: left;       /* align text to the left */
+  color: #2C3E50;
+  font-size: 0.9rem;
+}
+
+
