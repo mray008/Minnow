@@ -2,6 +2,14 @@ body {
   font-family: 'Dancing Script', cursive;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden; /* prevent horizontal scroll */
+}
+
+
 .navbar {
   position: fixed;           /* make it stick at the top */
   top: 10px;                 /* small space from top */
@@ -62,19 +70,6 @@ body {
     margin: 10px 0 100px 0;   /* space above and below and sideways */
     line-height: 1.5;         /* improve readability */
     font-style: normal;       /* ensure it's not italic */
-}
-
-.footer {
-  padding: 20px 40px;
-  border-top: 1px solid #ddd;
-   margin-top: 100px;
-}
-
-.footer-content p {
-  max-width: 1200px;
-  text-align: left;       /* align text to the left */
-  color: #2C3E50;
-  font-size: 0.9rem;
 }
 
 

@@ -4,6 +4,7 @@ import Login from "./Login.jsx";
 import "./NavBar.css";
 import aquariumBg from './assets/aquarium-bg.avif';
 import AboutUs from "./AboutUs.jsx";
+import Footer from "./Footer.jsx";
 
 // ✅ NavBar component
 function NavBar() {
@@ -56,10 +57,13 @@ export default function MainRouter() {
                   backgroundPosition: "center",
                   backgroundRepeat: "no-repeat",
                   minHeight: "100vh",
+                  paddingBottom: "40px",
                 }}
               >
                 <Hero onLoginClick={() => setShowLogin(true)} />
-                <Footer />
+                <div style={{ marginTop: "150px" }}>
+          <Footer />
+        </div>
               </div>
             ) : (
               <Login />
@@ -73,13 +77,4 @@ export default function MainRouter() {
 }
 
 
-function Footer() {
-  return (
-    <footer className="footer">
-      <div className="footer-content">
-        <p>&copy; 2025 Minnow. All rights reserved.</p>
-        <p>Empowering students with accessible, engaging, and inclusive learning experiences.</p>
-      </div>
-    </footer>
-  );
-}
+

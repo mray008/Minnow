@@ -1,0 +1,79 @@
+.about-title {
+  font-size: 2.8rem;
+  margin-bottom: 30px;
+  color: #3B2F2F;
+}
+
+.slide-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  min-height: 500px; /* gives space for image + description */
+}
+
+.slide-content {
+  text-align: center;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* pushes description to bottom */
+  align-items: center;
+}
+
+.team-img {
+  width: 320px;
+  height: auto;
+  object-fit: contain; /* ensures full image is visible */
+  border-radius: 20px;
+  box-shadow: 0px 4px 20px rgba(0,0,0,0.2);
+  margin-bottom: 20px; /* space before description */
+}
+
+.team-name {
+  font-size: 1.8rem;
+  color: #3B2F2F;
+  font-weight: bold;
+  margin: 10px 0 5px;
+}
+
+.team-desc {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: #444;
+  margin-bottom: 0;
+}
+
+.arrow {
+  background: none;
+  border: none;
+  font-size: 3rem;       /* keeps the visible arrow size */
+  cursor: pointer;
+  padding: 40px;         /* bigger clickable area */
+  color: #3B2F2F;
+  font-weight: bold;
+  transition: 0.2s;
+  position: absolute;
+  top: 50%;              /* vertically center relative to slide-box */
+  transform: translateY(-50%);              /* Was struggling with the UI/UX part where the user doesn't have to move their mouse back
+                                                                and forth to click to the next image so I consulted with chatGPT for help*/
+}
+
+.left-arrow {
+  left: -60px; /* distance from slide-box left */
+}
+
+.right-arrow {
+  right: -60px; /* distance from slide-box right */
+}
+
+.arrow:hover {
+  color: #6B4F4F;
+}
+
+.about-container {
+  text-align: center;
+  padding: 160px 20px 40px; /* pushes it down from navbar */
+}
