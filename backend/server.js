@@ -20,25 +20,18 @@ app.post("/login", (req, res) => {
       } else {
         if (result.length == 1) {
           // console.log("Result");
-
-          if (req.body.Password == result[0].password) {
-            res.json({
-              status: 200,
-              message: "User logged in successfully!",
-              data: result,
-            });
-          }
-          else {
-            res.status(403).json({
-              status: 403,
-              message: "Password is not correct",
-            });
-          }
+          res.json({
+            status: 200,
+            message: "User logged in successfully!",
+            data: result,
+            username: result[0].username,
+            role: result[0].role,
+          });
         }
         else {
           res.status(403).json({
             status: 403,
-            message: "Password is not correct",
+            message: "Password is not correct or no records match.",
           });
         }
       }
