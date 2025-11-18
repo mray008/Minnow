@@ -10,8 +10,8 @@ app.post("/login", (req, res) => {
   connection.execute(
   "select * from users where username=? and password=?",
     [
-      req.body.Username,
-      req.body.Password,
+      req.body.username,
+      req.body.password,
     ],
     function (err, result) {
       if (err) {
@@ -43,7 +43,7 @@ app.post("/register", (req, res) => {
   connection.execute(
     "select * from user_information where username=?",
     [
-      req.body.Username,
+      req.body.username,
     ],
     function(err, result) {
       if (err) {
@@ -53,8 +53,8 @@ app.post("/register", (req, res) => {
           connection.execute(
             "insert into user_information (username,password,role) values (?,?,?)",
             [
-              req.body.Username,
-              req.body.Password,
+              req.body.username,
+              req.body.password,
               "student",
             ],
             function (err, result) {
