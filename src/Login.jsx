@@ -2,6 +2,7 @@ import { useState } from "react";
 import StudentDashboard from "./StudentDashboard.jsx";
 import EducatorDashboard from "./EducatorDashboard.jsx";
 import AdminDashboard from "./AdminDashboard.jsx";
+import Footer from "./Footer.jsx";
 
 export default function Login() {
   const [user, setUser] = useState(null);
@@ -59,14 +60,29 @@ function LoginForm({ onLogin }) {
   };
 
   return (
-    <div className="login-container">
-      <form onSubmit={handleSubmit} className="login-form">
+    <div
+      className="login-container"
+      style={{
+        display: "flex",
+        flexDirection: "column",  // stack vertically
+        alignItems: "center",     // center horizontally
+        minHeight: "100vh",
+         padding: "400px 20px 40px 20px",
+        boxSizing: "border-box",
+      }}
+    >
+      <form
+        onSubmit={handleSubmit}
+        className="login-form"
+        style={{ width: "100%", maxWidth: "400px", display: "flex", flexDirection: "column", gap: "15px" }}
+      >
         <h2>Login</h2>
         <input
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
+          style={{ padding: "10px", fontSize: "1rem" }}
         />
         <input
           type="password"
@@ -74,9 +90,28 @@ function LoginForm({ onLogin }) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          style={{ padding: "10px", fontSize: "1rem" }}
         />
-        <button type="submit">Login</button>
+        <button
+          type="submit"
+          style={{
+            padding: "12px",
+            fontSize: "1.1rem",
+            backgroundColor: "#3B2F2F",
+            color: "#fff",
+            border: "none",
+            borderRadius: "8px",
+            cursor: "pointer",
+          }}
+        >
+          Login
+        </button>
       </form>
+
+      {/* Footer below */}
+      <div style={{ marginTop: "100px", width: "100%" }}>
+        <Footer />
+      </div>
     </div>
   );
 }

@@ -57,14 +57,8 @@ export default function AboutUs() {
         <div
   className="landing"
   style={{
-    backgroundImage: `url(${aquariumBg})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    width: "100vw",      // full viewport width
     minHeight: "100vh",  // full viewport height
     paddingBottom: "40px",
-    boxSizing: "border-box", // includes padding
   }}
 >
   <div className="about-container" style={{ maxWidth: "100%", margin: "0 auto" }}>

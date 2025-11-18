@@ -5,17 +5,19 @@ import "./NavBar.css";
 import aquariumBg from './assets/aquarium-bg.avif';
 import AboutUs from "./AboutUs.jsx";
 import Footer from "./Footer.jsx";
+import ContactUs from "./ContactUs.jsx";
 
 // ✅ NavBar component
 function NavBar() {
   return (
     <nav className="navbar">
       <ul>
-        <li><a href="#home">Home</a></li>
+        <li><Link to="/">Home</Link></li>
         <li><a href="#Courses">Courses</a></li>
         <li><a href="#demo">Games</a></li>
         <li><Link to="/about">About Us</Link></li>
-        <li><a href="#contact">Register/Login</a></li>
+        <li><Link to="/login">Login</Link></li>
+        <li><Link to="/contact">Contact Us</Link></li>
       </ul>
     </nav>
   );
@@ -32,7 +34,7 @@ function Hero({ onLoginClick }) {
         With adaptive lessons, gamified modules, and offline capabilities, it helps students learn anytime, anywhere while empowering teachers and parents to track progress.
         Explore our platform to discover the learning resources we provide, and create an account to unlock your personalized educational experience.
       </p>
-      <button onClick={onLoginClick}>Go to Login</button>
+      {/*<button onClick={onLoginClick}>Go to Login</button>*/}
     </header>
   );
 }
@@ -52,10 +54,6 @@ export default function MainRouter() {
               <div
                 className="landing"
                 style={{
-                  backgroundImage: `url(${aquariumBg})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  backgroundRepeat: "no-repeat",
                   minHeight: "100vh",
                   paddingBottom: "40px",
                 }}
@@ -71,6 +69,8 @@ export default function MainRouter() {
           }
         />
         <Route path="/about" element={<AboutUs />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/contact" element={<ContactUs />} />
       </Routes>
     </Router>
   );
