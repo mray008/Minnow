@@ -4,7 +4,7 @@ export default function Footer() {
   const footerStyle = {
     textAlign: "left",      // align text to the left
     padding: "20px 40px",
-    background: "#f5f5f5",
+    background: "#7ec9e9",
     marginTop: "40px",
     color: "#2C3E50",
   };

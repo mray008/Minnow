@@ -2,7 +2,7 @@ import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Login from "./Login.jsx";
 import "./NavBar.css";
-import aquariumBg from './assets/aquarium-bg.avif';
+import aquariumBg from './assets/Background.jpeg';
 import AboutUs from "./AboutUs.jsx";
 import Footer from "./Footer.jsx";
 import ContactUs from "./ContactUs.jsx";
@@ -54,6 +54,10 @@ export default function MainRouter() {
               <div
                 className="landing"
                 style={{
+                  backgroundImage: `url(${aquariumBg})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
                   minHeight: "100vh",
                   paddingBottom: "40px",
                 }}

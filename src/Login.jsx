@@ -3,6 +3,7 @@ import StudentDashboard from "./StudentDashboard.jsx";
 import EducatorDashboard from "./EducatorDashboard.jsx";
 import AdminDashboard from "./AdminDashboard.jsx";
 import Footer from "./Footer.jsx";
+import aquariumBg from './assets/Background.jpeg';
 
 export default function Login() {
   const [user, setUser] = useState(null);
@@ -69,6 +70,10 @@ function LoginForm({ onLogin }) {
         minHeight: "100vh",
          padding: "400px 20px 40px 20px",
         boxSizing: "border-box",
+        backgroundImage: `url(${aquariumBg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
     >
       <form

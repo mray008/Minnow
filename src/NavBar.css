@@ -1,7 +1,15 @@
 body {
   font-family: 'Dancing Script', cursive;
-  background-color: light;
+  background-color: lightblue; /* replace "light" with a valid color */
+  background-image: url('./assets/aquarium-bg.avif'); /* relative path to your image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  padding-bottom: 40px;
+  margin: 0; /* ensure no default body margin */
 }
+
 
 html, body {
   margin: 0;
@@ -15,7 +23,7 @@ html, body {
   position: fixed;           /* make it stick at the top */
   top: 10px;                 /* small space from top */
   width: 100%;
-  background-color: #e6e6fa; /* background color */
+  background-color: darkblue; /* background color */
   padding: 10px 0;           /* top & bottom padding */
   display: flex;             
   justify-content: space-around; /* spreads items evenly */

@@ -7,7 +7,7 @@ import leeImg from "./assets/lee-pic.png";
 import madsImg from "./assets/mads-pic.jpg";
 import stanImg from "./assets/stan-pic.jpg";
 import Footer from "./Footer.jsx";
-import aquariumBg from './assets/aquarium-bg.avif';
+import aquariumBg from './assets/Background.jpeg';
 
 export default function AboutUs() {
     const slides = [
@@ -57,6 +57,11 @@ export default function AboutUs() {
         <div
   className="landing"
   style={{
+    backgroundImage: `url(${aquariumBg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+                      minHeight: "100vh",
     minHeight: "100vh",  // full viewport height
     paddingBottom: "40px",
   }}
