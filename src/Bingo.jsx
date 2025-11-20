@@ -55,8 +55,9 @@ function generateQuestionPool(maxAnswer, size,operation) {
           break;
         case 'division':
         if(b !== 0 && a % b === 0){
-          question = `${a} / ${b}`;
-          answer = a / b;
+          temp = a * b;
+          question = `${temp} / ${a}`;
+          answer = a;
           
         } else{
           continue;
