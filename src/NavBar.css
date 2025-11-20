@@ -81,4 +81,9 @@ html, body {
     font-style: normal;       /* ensure it's not italic */
 }
 
-
+.hero-logo { display:flex; justify-content:center; margin: 12px 0; }
+.hero-logo-img {
+  height: 360px;
+  width: auto;
+  object-fit: contain;
+}
