@@ -117,7 +117,7 @@ function generateQuestionPool(maxAnswer, size, operation) {
   }
 
 
-
+}
 
   // The Bingo component
   export default function Bingo({ maxAnswer = 10, size = 5, operation, difficulty }) {
