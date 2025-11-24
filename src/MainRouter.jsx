@@ -7,7 +7,7 @@ import AboutUs from "./AboutUs.jsx";
 import Footer from "./Footer.jsx";
 import ContactUs from "./ContactUs.jsx";
 
-// ✅ NavBar component
+//  NavBar component
 function NavBar() {
   return (
     <nav className="navbar">
@@ -23,7 +23,7 @@ function NavBar() {
   );
 }
 
-// ✅ Hero component
+// Hero component
 function Hero({ onLoginClick }) {
   return (
     <header className="hero">
@@ -39,7 +39,7 @@ function Hero({ onLoginClick }) {
   );
 }
 
-// ✅ MainRouter component
+//  MainRouter component
 export default function MainRouter() {
   const [showLogin, setShowLogin] = useState(false);
 
