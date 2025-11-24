@@ -14,32 +14,32 @@ export default function AboutUs() {
         {
             img: didiImg,
             name: "Didi Kone-Sow",
-            desc: "Short description about Didi."
+            desc: "An undergraduate at ODU majoring in Computer Science.​Didi enjoys reading, writing, and playing chess during her free time."
         },
         {                                           /* Used ChatGPT to help me construct the slides when I got stuck. */
             img: cammyImg,
             name: "Cameron Montgomery",
-            desc: "Short description about Cammy."
+            desc: "An undergraduate at ODU majoring in Computer Science. Cam enjoys making music, reading, and anything sci-fi."
         },
         {
             img: jayImg,
             name: "Jayson Yates",
-            desc: "Short description about Jay."
+            desc: "An undergraduate at ODU majoring in Computer Science. He enjoys video games, hanging out with friends, anime and animals."
         },
         {
             img: leeImg,
             name: "Lee Klaus",
-            desc: "Short description about Lee."
+            desc: "An undergraduate at ODU majoring in Computer Science, minoring in Cyber Security​He enjoys videos and loves cats."
         },
         {
             img: madsImg,
             name: "Maddie Ray",
-            desc: "Short description about Mads."
+            desc: "An undergraduate at ODU majoring in Computer Science. They enjoy video games, digital art, and reading."
         },
         {
             img: stanImg,
             name: "Stanley Synenko",
-            desc: "Short description about Stan."
+            desc: "An undergraduate at ODU majoring in Computer Science. He enjoys a fair few TCGs as well as some online games like EVE Online."
         }
     ];
 
