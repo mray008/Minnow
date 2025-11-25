@@ -6,6 +6,7 @@ import aquariumBg from './assets/Background.jpeg';
 import AboutUs from "./AboutUs.jsx";
 import Footer from "./Footer.jsx";
 import ContactUs from "./ContactUs.jsx";
+import minnowLogo from "./assets/MinnowLogo2.png";
 
 // ✅ NavBar component
 function NavBar() {
@@ -29,6 +30,9 @@ function Hero({ onLoginClick }) {
     <header className="hero">
       <h1 style={{ color: "#3B2F2F", fontStyle: "italic"}}>Welcome to Minnow</h1>
       <p style={{ color: "#3B2F2F"}}>Your platform for access to quality education</p>
+      <div className="hero-logo">
+        <img src={minnowLogo} alt="Minnow logo" className="hero-logo-img" />
+      </div>
       <p className="hero-subtext">
         Minnow is an educational platform that makes learning accessible, inclusive, and engaging for students of all levels. 
         With adaptive lessons, gamified modules, and offline capabilities, it helps students learn anytime, anywhere while empowering teachers and parents to track progress.
