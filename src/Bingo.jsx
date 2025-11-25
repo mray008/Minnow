@@ -317,75 +317,89 @@ function generateQuestionPool(maxAnswer, size, operation) {
       <div className="bingo-container">
         <h2 className="bingo-title">Bingo Board</h2>
 
-
         {/* Game Controls */}
         <div className="bingo-controls">
+
           {!currentQuestion && (
             <button onClick={startGame}>Start Game</button>
           )}
-
 
           {turn === 'player' && currentQuestion && (
             <div className="question-box">
               <p>Player's Turn</p>
               <p>{currentQuestion[0]}</p>
-              <p> Time left: {timeLeft}s </p>
+              <p>Time Left: {timeLeft}s</p>
+
               <input
                 type="text"
                 value={userAnswer}
                 onChange={e => setUserAnswer(e.target.value)}
                 placeholder="Your answer"
               />
-              <button onClick={handleSubmit}> Submit</button>
+              <button onClick={handleSubmit}>Submit</button>
             </div>
           )}
+
           {turn === 'cpu' && cpuQuestion && (
             <div className="cpu-question-box">
               <p>Computer's Turn</p>
               <p>{cpuQuestion[0]}</p>
-              <p> Time Left: {cpuTimeLeft}</p>
-              <input type="text"
+              <p>Time Left: {cpuTimeLeft}s</p>
+
+              <input
+                type="text"
                 value={userAnswer}
                 onChange={e => setUserAnswer(e.target.value)}
                 placeholder="Interrupt Answer"
               />
-
               <button onClick={playerSteal}>Steal!</button>
             </div>
           )}
-          <p>Player's Score: {score} </p>
-          <p>Player's Board</p>
-        </div>
-        {/* Bingo Board Display */}
-        {board.map((row, rIndex) => (
-          <div key={rIndex} className="bingo-row">
-            {row.map((cell, cIndex) => (
-              <div
-                key={cIndex}
-                className={`bingo-cell ${cell.marked ? 'marked' : ''} ${cell.wrong ? 'wrong' : ''}`}
-              >
-                {cell.answer !== null ? cell.answer : cell.question}
-              </div>
-            ))}
-          </div>
-        ))}
 
-        <p>Computer's Board</p>
-        {/* Cpu Board Display */}
-        {cpuBoard.map((row, rIndex) => (
-          <div key={rIndex} className="bingo-row">
-            {row.map((cell, cIndex) => (
-              <div
-                key={cIndex}
-                className={`bingo-cell ${cell.marked ? 'marked' : ''}`}
-              >
-                {cell.answer !== null ? cell.answer : cell.question}
+          <p>Player's Score: {score}</p>
+        </div>
+
+        {/* SIDE-BY-SIDE BOARDS */}
+        <div className="boards-container">
+
+          {/* Player Board */}
+          <div className="player-board">
+            <p>Player's Board</p>
+            {board.map((row, rIndex) => (
+              <div key={rIndex} className="bingo-row">
+                {row.map((cell, cIndex) => (
+                  <div
+                    key={cIndex}
+                    className={`bingo-cell ${cell.marked ? 'marked' : ''} ${cell.wrong ? 'wrong' : ''}`}
+                  >
+                    {cell.answer !== null ? cell.answer : cell.question}
+                  </div>
+                ))}
               </div>
             ))}
           </div>
-        ))}
+
+          {/* CPU Board */}
+          <div className="cpu-board">
+            <p>Computer's Board</p>
+            {cpuBoard.map((row, rIndex) => (
+              <div key={rIndex} className="bingo-row">
+                {row.map((cell, cIndex) => (
+                  <div
+                    key={cIndex}
+                    className={`bingo-cell ${cell.marked ? 'marked' : ''}`}
+                  >
+                    {cell.answer !== null ? cell.answer : cell.question}
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+
+        </div>
       </div>
     );
+
     function startCPUTurn() {
       //no questions in the pool
       if (questionPool.length === 0)
