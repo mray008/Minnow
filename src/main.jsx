@@ -6,9 +6,10 @@ import MatchingGame from './MatchingGame.jsx'
 import MainRouter from './MainRouter.jsx'
 import Login from './Login.jsx'
 import BingoGame from './BingoGame.jsx'
+import FakeChat from './FakeChat.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <MainRouter/>
+    <FakeChat/>
   </StrictMode>,
 )
