@@ -1,19 +1,11 @@
+//I used the react.dev/learn website to learn a lot of the concepts used in this module.
 import React, { useEffect, useRef, useState } from "react";
 import "./FakeChat.css";
 
-/**
- * Props:
- * - partnerName (string) : display name for the chat partner
- * - avatar (string)      : url to avatar image (optional)
- * - partnerStatus (string) : e.g. "online", "last seen 2:10 PM"
- *
- * Example:
- * <FakeChatIM partnerName="Alex" avatar="/alex.jpg" partnerStatus="online" />
- */
 export default function FakeChat({
   partnerName = "Garfield",
   avatar = "./src/assets/garf.png",
-  partnerStatus = "Offline",
+ 
 }) {
   const [messages, setMessages] = useState([
     {
@@ -30,7 +22,7 @@ export default function FakeChat({
   const nextIdRef = useRef(2);
   const [botStatus, setBotStatus] = useState("Offline");
 
-  // Autoscroll to bottom on new messages
+  //autoscroll to bottom on new messages
   useEffect(() => {
     if (messagesRef.current) {
       messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
@@ -59,7 +51,7 @@ export default function FakeChat({
     setDeliveredIds((prev) => [...prev, id]);
   }, 700);
 
-  // bot starts typing after a short delay
+  //bot starts typing after a short delay
   setTimeout(() => {
     setIsTyping(true);
     setBotStatus("Online"); // bot goes online while typing
@@ -80,11 +72,11 @@ export default function FakeChat({
     setIsTyping(false);
     setMessages((prev) => [...prev, botMsg]);
 
-    // keep bot online for 3 seconds after sending
+    //keep bot online for 5 seconds after sending
     setBotStatus("Online");
     setTimeout(() => {
       setBotStatus("Offline");
-    }, 3000);
+    }, 5000);
   }, replyDelay + 300);
 }
 
@@ -108,8 +100,8 @@ export default function FakeChat({
     }
   }
 
-  // small helper to render avatar (fallback to initials)
-  function Avatar({ src, name, size = 40 }) {
+  //small helper to render avatar (fallback to initials)
+  function Avatar({src, name, size = 40}) {
     if (src) {
       return <img className="fc-avatar" src={src} alt={name} style={{ width: size, height: size }} />;
     }
@@ -119,7 +111,7 @@ export default function FakeChat({
       .slice(0, 2)
       .join("")
       .toUpperCase();
-    return <div className="fc-avatar fc-avatar-fallback" style={{ width: size, height: size }}>{initials}</div>;
+    return <div className="fc-avatar fc-avatar-fallback" style={{width: size, height: size}}>{initials}</div>;
   }
 
   return (
@@ -127,7 +119,7 @@ export default function FakeChat({
       <header className="fc-header">
         <div className="fc-left">
           <button className="fc-icon-btn" aria-label="back">
-            {/* back arrow */}
+            {/* back arrow producted by chatgpt*/}
             <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z" /></svg>
           </button>
         </div>
@@ -146,6 +138,7 @@ export default function FakeChat({
         </div>
 
         <div className="fc-right">
+      {/*icons produced by chatgpt*/}
           <button className="fc-icon-btn" aria-label="video">
             {/* video icon */}
             <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M17 10.5V6c0-1.1-.9-2-2-2H3C1.9 4 1 4.9 1 6v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-4.5l4 4v-11l-4 4z"/></svg>
@@ -165,7 +158,7 @@ export default function FakeChat({
   return (
     <div key={m.id} className={`fc-msg-row ${isUser ? "sent" : "received"}`}>
 
-      {/* Avatar for received messages */}
+      {/*avatar for received messages*/}
       {!isUser && (
         <div className="fc-msg-avatar-small">
           <Avatar src={avatar} name={partnerName} size={34} />
@@ -174,14 +167,14 @@ export default function FakeChat({
 
       <div className="fc-bubble-wrap">
         
-        {/* The bubble itself */}
+        {/*the bubble*/}
         <div className={`fc-bubble ${isUser ? "bubble-sent" : "bubble-received"}`}>
           <div className="fc-text">{m.text}</div>
         </div>
 
-        {/* META BELOW THE BUBBLE */}
+        {/* meta below bubble (delivered/read/time)*/}
         <div className="fc-meta">
-             {/* Delivered / Read LABEL */}
+             {/* delivered/read*/}
         {isUser && (
           <div className="fc-delivery-label">
             {isDelivered ? "Read" : "Delivered"}
@@ -201,19 +194,19 @@ export default function FakeChat({
   );
 })}
 
-        {/* typing indicator */}
+        {/*typing indicator, assisted by chatgpt*/}
         {isTyping && (
           <div className="fc-msg-row received typing-row">
             <div className="fc-msg-avatar-small">
-              <div className="fc-avatar fc-avatar-fallback typing-avatar">•••</div>
+            <div className="fc-avatar fc-avatar-fallback typing-avatar">•••</div>
             </div>
             <div className="fc-bubble bubble-received typing-bubble">
               <div className="typing-dots">
                 <span />
                 <span />
                 <span />
-              </div>
             </div>
+          </div>
           </div>
         )}
       </main>

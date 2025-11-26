@@ -1,3 +1,5 @@
+/* chatgpt was used for most of the css to get that iMessage style look*/
+
 /* Root shell - center and size similar to Messages app */
 .fc-shell {
   width: 380px;
@@ -126,6 +128,8 @@
 
 /* sent (right) blue bubble */
 .bubble-sent {
+    padding-right: 0px;
+    padding-left: 5;
   margin-left: auto;
   background: #0b93f6;
   color: white;
@@ -266,9 +270,4 @@
   align-items: flex-end;
 }
 
-/* Fix read icon in bubble */
-.fc-read-icon {
-  margin-left: 6px;
-  display: inline-flex;
-  align-items: center;
-}
+
