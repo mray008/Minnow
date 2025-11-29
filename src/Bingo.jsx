@@ -124,12 +124,13 @@ export default function Bingo({ maxAnswer = 10, size = 5, operation, difficulty 
   const [cpuThinkTime, setCpuThinkTime] = useState(0);
   const [cpuPool, setCpuPool] = useState([]);
 
-  {/*ran into an error with computer's turns allowing them the chance for double turns, this was definitely a bug so hopefully trying to fix with a boolean that should hopefully prevent double turns. Basically like a semaphore */}
+
+  {/*ran into an error with computer's turns allowing them the chance for double turns, this was definitely a bug so hopefully trying to fix with a boolean that should hopefully prevent double turns. Basically like a semaphore */ }
   const [cpuFlag, setCpuFlag] = useState(false);
-  {/*creating a semaphore for stealFlag for when a player tries to steal a computer's turn, need it for if they get it wrong/right, wrong comes with painful consequences */}
+  {/*creating a semaphore for stealFlag for when a player tries to steal a computer's turn, need it for if they get it wrong/right, wrong comes with painful consequences */ }
   const [stealFlag, setStealFlag] = useState(false);
 
-  
+
 
   const difficultyCPUTime = { easy: 8, medium: 5, hard: 3 };
 
@@ -175,11 +176,14 @@ export default function Bingo({ maxAnswer = 10, size = 5, operation, difficulty 
 
   useEffect(() => {
     if (!currentQuestion) return;
+
     if (timeLeft <= 0) {
       handleSubmit();
       return;
     }
+
     const timer = setTimeout(() => setTimeLeft(t => t - 1), 1000);
+
     return () => clearTimeout(timer);
   }, [timeLeft, currentQuestion]);
 
@@ -187,6 +191,34 @@ export default function Bingo({ maxAnswer = 10, size = 5, operation, difficulty 
     if (!currentQuestion || gameOver) return;
     const userAns = parseInt(userAnswer);
     const correctA = currentQuestion[1];
+        // Normal scoring depends on timeLeft
+    if (!stealFlag) {
+      if (userAns === correctA) {
+        const points = calculateScore(Math.abs(correctA), timeLeft, 10);
+        setScore(prev => prev + points);
+      } else {
+        setScore(prev => Math.max(prev - 10, 0));
+      }
+   
+    }
+
+    // Steal scoring always runs, ignore timeLeft
+    if (stealFlag) {
+      if (userAns === correctA) {
+        const extraPoints = correctA * 2;
+        const points = calculateScore(extraPoints, cpuTimeLeft, 10); // max time or just extra points
+        setScore(prev => prev + points);
+      } else {
+        setScore(prev => Math.max(prev - 50, 0));
+      }
+    finishPlayerTurn(userAns);
+  }
+
+
+  function finishPlayerTurn(userAns){
+    const correctA = currentQuestion[1];
+  
+  
 
     setBoard(prev => {
       const newBoard = prev.map(row =>
@@ -199,54 +231,34 @@ export default function Bingo({ maxAnswer = 10, size = 5, operation, difficulty 
           return cell;
         })
       );
-{/*Checks the board state with the different win conditions(diagonal, horizontal, vertical, if true declares you the winner and should reset to the settings menu.) */}
-if (checkWin(newBoard)) {
-  setGameOver(true);
-  setGameActive(false);
-  setCurrentQuestion(null);
-  
-  // Reset semaphores
-  setCpuThinking(false);
-  setStealFlag(false);
+      //*Checks the board state with the different win conditions(diagonal, horizontal, vertical, if true declares you the winner and should reset to the settings menu.)
+      if (checkWin(newBoard)) {
+        setGameOver(true);
+        setGameActive(false);
+        setCurrentQuestion(null);
+        setCpuFlag(false);
+        setStealFlag(false);
 
-  // Use a short delay so alerts finish before unmount
-  setTimeout(() => {
-    alert("Bingo! You win!");
 
-  }, 50);
-}
+        setTimeout(() => {
+          alert("Bingo! You win!");
+        }, 50);
+      }
 
       return newBoard;
     });
 
-    if (userAns === correctA && stealFlag === false) {
-      {/* Needed to add absolute value, since the subtraction allows for negative numbers */}
-      const points = calculateScore(Math.abs(correctA), timeLeft, 10);
-      setScore(prev => prev + points);
-    } else {
-      {/* if player gets it incorrect they will have their score subtracted by ten, thinking if they try and steal a computer's question and get it wrong it will be much more severe. */}
-      setScore(prev => Math.max(prev - 10, 0));
-    }
-     {/*if its during the computer's turn, the steal flag will be marked true, if they get the answer correct they are rewarded with a lot of points.  */}
-    if(userAns === correctA  && stealFlag === true ){
-      let extraPoints = correctA * 2;
-      const points = calculateScore(extraPoints,timeLeft,10);
-      setScore(prev => prev + points);
-    }
-     {/* if its during the computer's turn and they get the answer incorrect, a heavy deduction will be taken from their score. */}
-    if(userAns !== correctA && stealFlag === true){
-      setScore(prev => Math.max(prev - 50, 0));
     }
 
     setUserAnswer('');
     setCpuFlag(false);
+    setStealFlag(false);
     setTurn("cpu");
     startCPUTurn();
   }
-
   // Check win functions
   function checkRowWin(board) { return board.some(row => row.every(cell => cell.marked)); }
-  function checkColWin(board) { 
+  function checkColWin(board) {
     const n = board.length;
     for (let col = 0; col < n; col++) {
       if (board.every(row => row[col].marked)) return true;
@@ -254,43 +266,57 @@ if (checkWin(newBoard)) {
     return false;
   }
   function checkMainDiagonalWin(board) { return board.every((row, i) => row[i].marked); }
-  function checkAntiDiagonalWin(board) { 
+  function checkAntiDiagonalWin(board) {
     const n = board.length;
     return board.every((row, i) => row[n - 1 - i].marked);
   }
+
   function checkWin(board) { return checkRowWin(board) || checkColWin(board) || checkMainDiagonalWin(board) || checkAntiDiagonalWin(board); }
 
   function calculateScore(answer, timeLeft, maxTime = 10) {
     return Math.ceil(answer * (timeLeft / maxTime));
   }
- {/*computer's turn, sets both Cpuflag and StealFlag to true, pulls questions from the computer's question pool. */}
-  function startCPUTurn() {
-    if (cpuFlag || cpuPool.length === 0 || gameOver) return;
-    setCpuFlag(true);
-    setStealFlag(true);
-    const rand = Math.floor(Math.random() * cpuPool.length);
-    const next = cpuPool[rand];
-    const updated = [...cpuPool];
-    updated.splice(rand, 1);
-    setCpuPool(updated);
 
-    setCpuQuestion(next);
-    setCpuTimeLeft(cpuThinkTime);
 
-    const timer = setInterval(() => {
-      setCpuTimeLeft(t => {
-        if (t <= 1) {
-          clearInterval(timer);
-          cpuFinishTurn(next);
-        }
-        return t - 1;
-      });
-    }, 1000);
-  }
 
-  {/*After the alloted time for the computer, it will enter this function which will finish its turn, setting the semaphore(cpuFlag) to true and setting the turn to player's turn  */}
-  function cpuFinishTurn(question) {
-  if (turn !== "cpu" || gameOver) return;
+
+  {/*computer's turn, sets both Cpuflag and StealFlag to true, pulls questions from the computer's question pool. */ }
+function startCPUTurn() {
+  if (cpuFlag || cpuPool.length === 0 || gameOver) return;
+
+  setCpuFlag(true);
+  setStealFlag(true);
+
+  const rand = Math.floor(Math.random() * cpuPool.length);
+  const next = cpuPool[rand];
+  const updated = [...cpuPool];
+  updated.splice(rand, 1);
+  setCpuPool(updated);
+
+  setCpuQuestion(next);
+  setCpuTimeLeft(cpuThinkTime);
+
+  const intervalId = setInterval(() => {
+    setCpuTimeLeft(prev => {
+      if (prev <= 1) {
+        clearInterval(intervalId);
+        cpuFinishTurn(next);
+        return 0;
+      }
+      return prev - 1;
+    });
+  }, 1000);
+
+  // Make sure to clear interval if CPU turn is interrupted (steal)
+  const cleanup = () => clearInterval(intervalId);
+  return cleanup;
+}
+
+
+
+  {/*After the alloted time for the computer, it will enter this function which will finish its turn, setting the semaphore(cpuFlag) to true and setting the turn to player's turn  */ }
+function cpuFinishTurn(question) {
+  if (gameOver) return;
 
   const correctAns = question[1];
 
@@ -299,45 +325,52 @@ if (checkWin(newBoard)) {
       row.map(cell => (cell.answer === correctAns ? { ...cell, marked: true } : cell))
     );
 
-    // Check CPU win
     if (checkWin(newBoard)) {
       setGameOver(true);
-
-      // Reset flags
-      setCpuFlag(false);
-      setStealFlag(false);
-
-      // Delay alert and exit to let state updates finish
-      setTimeout(() => {
-        alert("CPU wins!");
-
-      }, 50);
+      setTimeout(() => alert("CPU wins!"), 50);
     }
 
     return newBoard;
   });
 
-  // Reset CPU question and go back to player turn ONLY if game not over
+  // Reset CPU flags and return control to player if game not over
+  setCpuFlag(false);
+  setStealFlag(false);
+  setCpuQuestion(null);
+
   if (!gameOver) {
-    setCpuQuestion(null);
     setTurn("player");
     startTurn();
   }
 }
 
- {/* function that allows the player to steal answers during the computer's turn, allows for the blocking of the computer to add a spot to their board.  */}
-  function playerSteal() {
-    if (turn !== "cpu") return;
-    const playerAns = parseInt(userAnswer);
-    const correctAns = cpuQuestion[1];
 
-    if (playerAns === correctAns) {
-      setCpuQuestion(null);
-      setTurn("player");
-      startTurn();
-    }
-    setUserAnswer('');
+  {/* function that allows the player to steal answers during the computer's turn, allows for the blocking of the computer to add a spot to their board.  */ }
+function playerSteal() {
+  if (turn !== "cpu" || !cpuQuestion) return;
+
+  const playerAns = parseInt(userAnswer);
+  const correctAns = cpuQuestion[1];
+
+  if (playerAns === correctAns) {
+    // Mark CPU's question as "stolen" and give player a point/mark
+    setBoard(prev => {
+      const newBoard = prev.map(row =>
+        row.map(cell => (cell.answer === correctAns ? { ...cell, marked: true } : cell))
+      );
+      return newBoard;
+    });
+
+    // Stop CPU's turn
+    setCpuQuestion(null);
+    setCpuFlag(false);
+    setStealFlag(false);
+    setTurn("player");
+    startTurn();
   }
+
+  setUserAnswer('');
+}
 
   if (!board.length) return <div>Loading Bingo board...</div>;
 
@@ -348,7 +381,7 @@ if (checkWin(newBoard)) {
       {/* Controls */}
       <div className="bingo-controls">
         {!currentQuestion && <button onClick={startGame}>Start Game</button>}
-{/*TPlayer's Question is taken from their question pool.  */ }
+        {/*TPlayer's Question is taken from their question pool.  */}
         {turn === 'player' && currentQuestion && (
           <div className="question-box">
             <p>Player's Turn</p>
@@ -363,7 +396,7 @@ if (checkWin(newBoard)) {
             <button onClick={handleSubmit}>Submit</button>
           </div>
         )}
-{/*Computer has their own separate question pool, as to not conflict with the player's*/ }
+        {/*Computer has their own separate question pool, as to not conflict with the player's*/}
         {turn === 'cpu' && cpuQuestion && (
           <div className="cpu-question-box">
             <p>Computer's Turn</p>
@@ -384,7 +417,7 @@ if (checkWin(newBoard)) {
 
       {/* Boards side by side */}
       <div className="boards-container">
-        {/*This is the creation of the player's board */ }
+        {/*This is the creation of the player's board */}
         <div className="player-board">
           <p>Player's Board</p>
           {board.map((row, rIndex) => (
@@ -400,7 +433,7 @@ if (checkWin(newBoard)) {
             </div>
           ))}
         </div>
-          {/*This is the creation of the computer's board */ }
+        {/*This is the creation of the computer's board */}
         <div className="cpu-board">
           <p>Computer's Board</p>
           {cpuBoard.map((row, rIndex) => (
