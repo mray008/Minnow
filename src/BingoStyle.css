@@ -43,3 +43,15 @@
     background-color: red;
     color: white;
 }
+.create-game{
+    align-items: center;
+}
+.game-wrapper{
+    align-items: center;
+}
+.option-group{
+    align-items: center;
+}
+.option-group2{
+    align-items: center;
+}
