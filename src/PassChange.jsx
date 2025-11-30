@@ -6,11 +6,11 @@ const regex2 = new RegExp("^[\\x21-\\x7E]+$");
 
 function displayPasswordRequirements() {
   const frontMessage = "This is where you will type your new password.\n"+
-  "Please enter it twice, and that it follows these requirements:\n";
-  const rule1 = "- Has at least one uppercase letter (A-Z) and one lowercase (a-z)\n";
-  const rule2 = "- Has at least one number (0-9) and a special character (#, %, etc.)\n";
-  const rule3 = "- Is between 8 and 16 characters long\n";
-  const rule4 = "- Contains only printable ASCII characters (no spaces, what you see on a keyboard).\n";
+  "Please enter it twice, and see that it follows these requirements:\n";
+  const rule1 = "- It has at least one uppercase letter (A-Z) and one lowercase letter (a-z).\n";
+  const rule2 = "- It has at least one number (0-9) and a special character (#, %, etc.).\n";
+  const rule3 = "- It is between 8 and 16 characters long, inclusive.\n";
+  const rule4 = "- It contains only printable ASCII characters (no spaces, what you see on a standard keyboard).\n";
 return frontMessage + rule1 + rule2 + rule3 + rule4;
 }   
 function passwordMatch(password1, password2) {
@@ -36,3 +36,5 @@ function validatePassword(password1, password2) {
   }
   return null; // no errors
 }
+
+export { validatePassword, displayPasswordRequirements, isValidPassword };
