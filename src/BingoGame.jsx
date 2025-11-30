@@ -36,9 +36,9 @@ function CreateGameScreen({ onStart }) {
   const [customMax,setCustomMax] = useState(10);
 
   const difficultyMap = {
-    easy: 10,
-    medium: 15,
-    hard: 20
+    easy: 15,
+    medium: 20,
+    hard: 25
   };
 
   function handleStartClick() {
@@ -69,9 +69,9 @@ function CreateGameScreen({ onStart }) {
       <div className="option-group">
         <label>Difficulty:</label>
         <select value={difficulty} onChange={e => setDifficulty(e.target.value)}>
-          <option value="easy">Easy (1–10)</option>
-          <option value="medium">Medium (1–15)</option>
-          <option value="hard">Hard (1–20)</option>
+          <option value="easy">Easy </option>
+          <option value="medium">Medium </option>
+          <option value="hard">Hard</option>
           <option value= "custom">Custom</option>
            </select>
           {difficulty === 'custom' && (

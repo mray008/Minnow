@@ -52,9 +52,16 @@ function generateQuestionPool(maxAnswer, size, operation) {
           answer = a * b;
           break;
         case 'division':
-          if (b !== 0 && a % b === 0) {
+          if (b !== 0 ) {
+            if(Math.random() < .8){
+              b = Math.floor(Math.random()* (maxAnswer-1)) +2;
+            }
+            else{
+              b = 1;
+            }
             let temp = a;
-            question = `${a * b} / ${b}`;
+            let q = a * b;
+            question = `${q} / ${b}`;
             answer = a;
           } else {
             continue;
@@ -187,75 +194,68 @@ export default function Bingo({ maxAnswer = 10, size = 5, operation, difficulty 
     return () => clearTimeout(timer);
   }, [timeLeft, currentQuestion]);
 
-  function handleSubmit() {
-    if (!currentQuestion || gameOver) return;
-    const userAns = parseInt(userAnswer);
-    const correctA = currentQuestion[1];
-        // Normal scoring depends on timeLeft
-    if (!stealFlag) {
-      if (userAns === correctA) {
-        const points = calculateScore(Math.abs(correctA), timeLeft, 10);
-        setScore(prev => prev + points);
-      } else {
-        setScore(prev => Math.max(prev - 10, 0));
-      }
-   
-    }
+function handleSubmit() {
+  if (!currentQuestion || gameOver || turn !== "player") return;
 
-    // Steal scoring always runs, ignore timeLeft
-    if (stealFlag) {
-      if (userAns === correctA) {
-        const extraPoints = correctA * 2;
-        const points = calculateScore(extraPoints, cpuTimeLeft, 10); // max time or just extra points
-        setScore(prev => prev + points);
-      } else {
-        setScore(prev => Math.max(prev - 50, 0));
-      }
-    finishPlayerTurn(userAns);
+  const userAns = parseInt(userAnswer);
+  const correctA = currentQuestion[1];
+
+  // --- PLAYER SCORING (stealFlag = false) ---
+  if (!stealFlag) {
+    if (userAns === correctA) {
+      const points = calculateScore(Math.abs(correctA), timeLeft, 10);
+      setScore(prev => prev + points);
+    } else {
+      setScore(prev => Math.max(prev - 10, 0));
+    }
   }
 
+ 
 
-  function finishPlayerTurn(userAns){
-    const correctA = currentQuestion[1];
-  
-  
-
-    setBoard(prev => {
-      const newBoard = prev.map(row =>
-        row.map(cell => {
-          if (cell.answer === correctA && userAns === correctA) {
-            return { ...cell, marked: true };
-          } else if (cell.answer === userAns && userAns !== correctA) {
-            return { ...cell, wrong: true };
-          }
-          return cell;
-        })
-      );
-      //*Checks the board state with the different win conditions(diagonal, horizontal, vertical, if true declares you the winner and should reset to the settings menu.)
-      if (checkWin(newBoard)) {
-        setGameOver(true);
-        setGameActive(false);
-        setCurrentQuestion(null);
-        setCpuFlag(false);
-        setStealFlag(false);
+  finishPlayerTurn(userAns);
+}
 
 
-        setTimeout(() => {
-          alert("Bingo! You win!");
-        }, 50);
-      }
+function finishPlayerTurn(userAns) {
+  const correctA = currentQuestion[1];
 
-      return newBoard;
-    });
+  setBoard(prev => {
+    const newBoard = prev.map(row =>
+      row.map(cell => {
+        if (cell.answer === correctA && userAns === correctA) {
+          return { ...cell, marked: true };
+        } else if (cell.answer === userAns && userAns !== correctA) {
+          return { ...cell, wrong: true };
+        }
+        return cell;
+      })
+    );
 
+    if (checkWin(newBoard)) {
+      setGameOver(true);
+      setGameActive(false);
+      setCurrentQuestion(null);
+      setCpuFlag(false);
+      setStealFlag(false);
+
+      setTimeout(() => alert("Bingo! You win!"), 50);
     }
 
-    setUserAnswer('');
-    setCpuFlag(false);
-    setStealFlag(false);
+    return newBoard;
+  });
+
+  // Cleanup
+  setUserAnswer('');
+  setStealFlag(false);
+  setCpuFlag(false);
+
+  // Move to CPU turn
+  if (!gameOver) {
     setTurn("cpu");
     startCPUTurn();
   }
+}
+
   // Check win functions
   function checkRowWin(board) { return board.some(row => row.every(cell => cell.marked)); }
   function checkColWin(board) {
@@ -274,9 +274,17 @@ export default function Bingo({ maxAnswer = 10, size = 5, operation, difficulty 
   function checkWin(board) { return checkRowWin(board) || checkColWin(board) || checkMainDiagonalWin(board) || checkAntiDiagonalWin(board); }
 
   function calculateScore(answer, timeLeft, maxTime = 10) {
-    return Math.ceil(answer * (timeLeft / maxTime));
+    let points;
+
+  points = Math.ceil(answer * (timeLeft / maxTime));
+    
+
+  return points;
   }
 
+  function calculateStolenScore(answer){
+    return answer+35;
+  }
 
 
 
@@ -291,58 +299,70 @@ function startCPUTurn() {
   const next = cpuPool[rand];
   const updated = [...cpuPool];
   updated.splice(rand, 1);
-  setCpuPool(updated);
 
+  setCpuPool(updated);
   setCpuQuestion(next);
   setCpuTimeLeft(cpuThinkTime);
 
+  // CPU COUNTDOWN TIMER
   const intervalId = setInterval(() => {
     setCpuTimeLeft(prev => {
-      if (prev <= 1) {
+      if (prev === 0) {
         clearInterval(intervalId);
+        if(Math.random()>= .8){
+
         cpuFinishTurn(next);
-        return 0;
+         return 0;
+        }    else
+           setTurn("player");
+    startTurn();     // ← player’s next question
+    return 0;
+       
       }
       return prev - 1;
     });
   }, 1000);
 
-  // Make sure to clear interval if CPU turn is interrupted (steal)
-  const cleanup = () => clearInterval(intervalId);
-  return cleanup;
+  // Return cleanup for interrupts (steal)
+  return () => clearInterval(intervalId);
 }
+
 
 
 
   {/*After the alloted time for the computer, it will enter this function which will finish its turn, setting the semaphore(cpuFlag) to true and setting the turn to player's turn  */ }
 function cpuFinishTurn(question) {
-  if (gameOver) return;
+  if (turn !== "cpu" || gameOver) return;
 
-  const correctAns = question[1];
+  const correctA = question[1];
 
   setCpuBoard(prev => {
-    const newBoard = prev.map(row =>
-      row.map(cell => (cell.answer === correctAns ? { ...cell, marked: true } : cell))
+    const updated = prev.map(row =>
+      row.map(cell =>
+        cell.answer === correctA ? { ...cell, marked: true } : cell
+      )
     );
 
-    if (checkWin(newBoard)) {
+    if (checkWin(updated)) {
       setGameOver(true);
+      setCpuFlag(false);
+      setStealFlag(false);
+
       setTimeout(() => alert("CPU wins!"), 50);
     }
 
-    return newBoard;
+    return updated;
   });
 
-  // Reset CPU flags and return control to player if game not over
-  setCpuFlag(false);
-  setStealFlag(false);
-  setCpuQuestion(null);
-
   if (!gameOver) {
+    setCpuFlag(false);
+    setStealFlag(false);
+    setCpuQuestion(null);
     setTurn("player");
-    startTurn();
+    startTurn();     // ← player’s next question
   }
 }
+
 
 
   {/* function that allows the player to steal answers during the computer's turn, allows for the blocking of the computer to add a spot to their board.  */ }
@@ -350,27 +370,26 @@ function playerSteal() {
   if (turn !== "cpu" || !cpuQuestion) return;
 
   const playerAns = parseInt(userAnswer);
-  const correctAns = cpuQuestion[1];
+  const correctA = cpuQuestion[1];
 
-  if (playerAns === correctAns) {
-    // Mark CPU's question as "stolen" and give player a point/mark
-    setBoard(prev => {
-      const newBoard = prev.map(row =>
-        row.map(cell => (cell.answer === correctAns ? { ...cell, marked: true } : cell))
-      );
-      return newBoard;
-    });
-
-    // Stop CPU's turn
+  if (playerAns === correctA) {
+          const extraPoints = Math.ceil((correctA * 2)/1.5);
+     
+      setScore(prev => prev + extraPoints);
+    // successful steal → cancel CPU turn
     setCpuQuestion(null);
-    setCpuFlag(false);
     setStealFlag(false);
+    setCpuFlag(false);
     setTurn("player");
     startTurn();
+  }
+  if(playerAns !== correctA && playerAns !== null){
+    setScore(prev => prev - 50);
   }
 
   setUserAnswer('');
 }
+
 
   if (!board.length) return <div>Loading Bingo board...</div>;
 
