@@ -2,84 +2,102 @@ import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Login from "./Login.jsx";
 import "./NavBar.css";
-import aquariumBg from './assets/aquarium-bg.avif';
+import background from './assets/Background.jpeg';
 import AboutUs from "./AboutUs.jsx";
+import Footer from "./Footer.jsx";
+import ContactUs from "./ContactUs.jsx";
+import minnowLogo from "./assets/MinnowLogo2.png";
+import FakeChat from "./FakeChat.jsx";
+import ChatbotWrapper from "./ChatbotWrapper";
+import MatchingGame from "./MatchingGame.jsx";
+import Games from "./Games.jsx";
 
-// ✅ NavBar component
+function TopHeader() {
+  return (
+    <header className="top-header">
+      <img src={minnowLogo} alt="Minnow Logo" className="top-header-logo" />
+      <h1 className="top-header-title">Minnow</h1>
+    </header>
+  );
+}
+
+//  NavBar component
 function NavBar() {
   return (
     <nav className="navbar">
       <ul>
-        <li><a href="#home">Home</a></li>
+        <li><Link to="/">Home</Link></li>
         <li><a href="#Courses">Courses</a></li>
-        <li><a href="#demo">Games</a></li>
+        <li><Link to="/games">Games</Link></li>
         <li><Link to="/about">About Us</Link></li>
-        <li><a href="#contact">Register/Login</a></li>
+        <li><Link to="/login">Login</Link></li>
+        <li><Link to="/contact">Contact Us</Link></li>
       </ul>
     </nav>
   );
 }
 
-// ✅ Hero component
+// Hero component
 function Hero({ onLoginClick }) {
   return (
     <header className="hero">
       <h1 style={{ color: "#3B2F2F", fontStyle: "italic"}}>Welcome to Minnow</h1>
       <p style={{ color: "#3B2F2F"}}>Your platform for access to quality education</p>
+      <div className="hero-logo">
+        <img src={minnowLogo} alt="Minnow logo" className="hero-logo-img" />
+      </div>
       <p className="hero-subtext">
         Minnow is an educational platform that makes learning accessible, inclusive, and engaging for students of all levels. 
         With adaptive lessons, gamified modules, and offline capabilities, it helps students learn anytime, anywhere while empowering teachers and parents to track progress.
         Explore our platform to discover the learning resources we provide, and create an account to unlock your personalized educational experience.
       </p>
-      <button onClick={onLoginClick}>Go to Login</button>
+      {/*<button onClick={onLoginClick}>Go to Login</button>*/}
     </header>
   );
 }
 
-// ✅ MainRouter component
+//  MainRouter component
 export default function MainRouter() {
   const [showLogin, setShowLogin] = useState(false);
+  const [user, setUser] = useState(null);
 
   return (
     <Router basename="/Minnow">
+      <div className="background-wrapper">
+      <TopHeader />
       <NavBar />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            !showLogin ? (
-              <div
-                className="landing"
-                style={{
-                  backgroundImage: `url(${aquariumBg})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  backgroundRepeat: "no-repeat",
-                  minHeight: "100vh",
-                }}
-              >
-                <Hero onLoginClick={() => setShowLogin(true)} />
-                <Footer />
-              </div>
-            ) : (
-              <Login />
-            )
-          }
-        />
-        <Route path="/about" element={<AboutUs />} />
-      </Routes>
+
+      <div className="page-content">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              !showLogin ? (
+                <div
+                  className="landing"
+                >
+                  <Hero onLoginClick={() => setShowLogin(true)} />
+                </div>
+              ) : (
+                <Login />
+              )
+            }
+          />
+
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/contact" element={<ContactUs />} />
+          <Route path="/games" element={<Games user={user} />} />
+          <Route path="/matching-game" element={<MatchingGame />} />
+        </Routes>
+      </div>
+      <ChatbotWrapper />
+      <Footer />
+      </div>
     </Router>
   );
 }
 
 
-function Footer() {
-  return (
-    <footer className="footer">
-      <div className="footer-content">
-        <p>&copy; 2025 Minnow. All rights reserved.</p>
-        <p>Empowering students with accessible, engaging, and inclusive learning experiences.</p>
-      </div>
-    </footer>
-  );
-}
+
+

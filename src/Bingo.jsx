@@ -29,7 +29,7 @@ function freeCell() {
 }
 
 // question pool generation
-function generateQuestionPool(maxAnswer, size, operation) {
+function generateQuestionPool(maxAnswer, size,operation) {
   const QA = [];
   const used = new Set();
   const usedAnswers = new Set();
@@ -38,12 +38,14 @@ function generateQuestionPool(maxAnswer, size, operation) {
   for (let a = 1; a <= maxAnswer; a++) {
     for (let b = 1; b <= maxAnswer; b++) {
       let answer, question;
-      switch (operation) {
+      switch(operation){
         case 'addition':
           question = `${a} + ${b}`;
           answer = a + b;
           break;
         case 'subtraction':
+          question = `${a} - ${b}`;
+          answer = a - b;
           question = `${a} - ${b}`;
           answer = a - b;
           break;
@@ -98,6 +100,18 @@ function generateBoard(maxAnswer, size = 5, operation) {
   let qIndex = 0;
   const center = Math.floor((size - 1) / 2);
 
+  for (let row = 0; row < size; row++) {
+    board[row] = [];
+    for (let col = 0; col < size; col++) {
+      if (row === center && col === center) {
+        board[row][col] = freeCell();
+      } else {
+        const [question, answer] = selectedQuestions[qIndex];
+        board[row][col] = createCell(question, answer);
+        qIndex++;
+      }
+    }
+  }
   for (let row = 0; row < size; row++) {
     board[row] = [];
     for (let col = 0; col < size; col++) {
@@ -241,6 +255,8 @@ function finishPlayerTurn(userAns) {
       setTimeout(() => alert("Bingo! You win!"), 50);
     }
 
+    return newBoard;
+  });
     return newBoard;
   });
 
@@ -391,6 +407,7 @@ function playerSteal() {
 }
 
 
+  if (!board.length) return <div>Loading Bingo board...</div>;
   if (!board.length) return <div>Loading Bingo board...</div>;
 
   return (

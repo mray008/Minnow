@@ -2,9 +2,19 @@ import { useState } from "react";
 import StudentDashboard from "./StudentDashboard.jsx";
 import EducatorDashboard from "./EducatorDashboard.jsx";
 import AdminDashboard from "./AdminDashboard.jsx";
+import { useNavigate } from "react-router-dom";
+
+// Store the intended page before redirecting to login
+export function redirectToLoginForGame(navigate, targetPath) {
+  localStorage.setItem("redirectAfterLogin", targetPath);
+  navigate("/login"); 
+}
 
 export default function Login() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null); // you were missing this
+const navigate = useNavigate(); // <-- add this
+
+  
 //chatgpt was used to troubleshoot here:
   const BACKEND_URL = "https://minnow.onrender.com";
 
@@ -19,6 +29,17 @@ export default function Login() {
       if (res.ok) {
         const data = await res.json();
         setUser(data); // logged-in user
+
+        // Check if user was trying to access a game first
+        // Portions of the redirect-after-login logic for games were implemented with assistance from ChatGPT
+        const redirectPath = localStorage.getItem("redirectAfterLogin");
+        if (redirectPath) {
+          localStorage.removeItem("redirectAfterLogin");
+          navigate(redirectPath); // <-- use navigate instead
+}
+
+
+
       } else {
         const err = await res.json();
         alert(err.message || "Invalid credentials");
@@ -31,20 +52,20 @@ export default function Login() {
 //to here
   const handleLogout = () => setUser(null);
 
-  // Show login if not logged in
-  if (!user) return <LoginForm onLogin={handleLogin} />;
+ // Show login if not logged in
+if (!user) return <LoginForm onLogin={handleLogin} />;
 
-  // Show dashboard based on role
-  switch (user.role) {
-    case "student":
-      return <StudentDashboard user={user} onLogout={handleLogout} />;
-    case "educator":
-      return <EducatorDashboard user={user} onLogout={handleLogout} />;
-    case "admin":
-      return <AdminDashboard user={user} onLogout={handleLogout} />;
-    default:
-      return <LoginForm onLogin={handleLogin} />;
-  }
+// Show dashboard based on role
+switch (user.role) {
+  case "student":
+    return <StudentDashboard user={user} onLogout={handleLogout} />;
+  case "educator":
+    return <EducatorDashboard user={user} onLogout={handleLogout} />;
+  case "admin":
+    return <AdminDashboard user={user} onLogout={handleLogout} />;
+  default:
+    return <LoginForm onLogin={handleLogin} />;
+}
 }
 
 // Login form component
@@ -59,14 +80,29 @@ function LoginForm({ onLogin }) {
   };
 
   return (
-    <div className="login-container">
-      <form onSubmit={handleSubmit} className="login-form">
+    <div
+      className="login-container"
+      style={{
+        display: "flex",
+        flexDirection: "column",  // stack vertically
+        alignItems: "center",     // center horizontally
+        minHeight: "100vh",
+         padding: "400px 20px 200px 20px",
+        boxSizing: "border-box",
+      }}
+    >
+      <form
+        onSubmit={handleSubmit}
+        className="login-form"
+        style={{ width: "100%", maxWidth: "400px", display: "flex", flexDirection: "column", gap: "15px" }}
+      >
         <h2>Login</h2>
         <input
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
+          style={{ padding: "10px", fontSize: "1rem" }}
         />
         <input
           type="password"
@@ -74,8 +110,22 @@ function LoginForm({ onLogin }) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
+          style={{ padding: "10px", fontSize: "1rem" }}
         />
-        <button type="submit">Login</button>
+        <button
+          type="submit"
+          style={{
+            padding: "12px",
+            fontSize: "1.1rem",
+            backgroundColor: "#3B2F2F",
+            color: "#fff",
+            border: "none",
+            borderRadius: "8px",
+            cursor: "pointer",
+          }}
+        >
+          Login
+        </button>
       </form>
     </div>
   );

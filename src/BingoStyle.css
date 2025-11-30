@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height:100vh;
 }
 
 .boards-container {
@@ -37,3 +38,36 @@
 .wrong {
   background-color: lightcoral;
 }
+
+.bingo-cell.wrong{
+    background-color: red;
+    color: white;
+}
+.create-game{
+    align-items: center;
+    display:flex;
+}
+.game-wrapper {
+  display: flex;
+  flex-direction: column;       /* stack menu or bingo vertically */
+  justify-content: center;      /* vertical centering */
+  align-items: center;          /* horizontal centering */
+  min-height: calc(100vh - 200px); /* leave space for your site header/footer */
+  padding: 20px;
+  text-align: center;
+
+}
+.option-group{
+    align-items: center;
+       display:flex;
+       flex-direction:column;
+       gap: 5px;
+    
+}
+.option-group2{
+        align-items: center;
+       display:flex;
+       flex-direction:column;
+       gap: 5px;
+}
+

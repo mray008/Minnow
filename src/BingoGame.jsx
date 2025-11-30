@@ -66,7 +66,7 @@ function CreateGameScreen({ onStart }) {
         </select>
       </div>
 
-      <div className="option-group">
+      <div className="option-group2">
         <label>Difficulty:</label>
         <select value={difficulty} onChange={e => setDifficulty(e.target.value)}>
           <option value="easy">Easy </option>
