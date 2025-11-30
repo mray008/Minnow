@@ -4,7 +4,7 @@ import "./FakeChat.css";
 
 export default function FakeChat({
   partnerName = "Garfield",
-  avatar = "./src/assets/garf.png",
+  avatar = "./assets/garf.png",
  
 }) {
   const [messages, setMessages] = useState([
