@@ -2,11 +2,19 @@ import { useState } from "react";
 import StudentDashboard from "./StudentDashboard.jsx";
 import EducatorDashboard from "./EducatorDashboard.jsx";
 import AdminDashboard from "./AdminDashboard.jsx";
-import Footer from "./Footer.jsx";
-import aquariumBg from './assets/Background.jpeg';
+import { useNavigate } from "react-router-dom";
+
+// Store the intended page before redirecting to login
+export function redirectToLoginForGame(navigate, targetPath) {
+  localStorage.setItem("redirectAfterLogin", targetPath);
+  navigate("/login"); 
+}
 
 export default function Login() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null); // you were missing this
+const navigate = useNavigate(); // <-- add this
+
+  
 //chatgpt was used to troubleshoot here:
   const BACKEND_URL = "https://minnow.onrender.com";
 
@@ -21,6 +29,17 @@ export default function Login() {
       if (res.ok) {
         const data = await res.json();
         setUser(data); // logged-in user
+
+        // Check if user was trying to access a game first
+        // Portions of the redirect-after-login logic for games were implemented with assistance from ChatGPT
+        const redirectPath = localStorage.getItem("redirectAfterLogin");
+        if (redirectPath) {
+          localStorage.removeItem("redirectAfterLogin");
+          navigate(redirectPath); // <-- use navigate instead
+}
+
+
+
       } else {
         const err = await res.json();
         alert(err.message || "Invalid credentials");
@@ -33,20 +52,20 @@ export default function Login() {
 //to here
   const handleLogout = () => setUser(null);
 
-  // Show login if not logged in
-  if (!user) return <LoginForm onLogin={handleLogin} />;
+ // Show login if not logged in
+if (!user) return <LoginForm onLogin={handleLogin} />;
 
-  // Show dashboard based on role
-  switch (user.role) {
-    case "student":
-      return <StudentDashboard user={user} onLogout={handleLogout} />;
-    case "educator":
-      return <EducatorDashboard user={user} onLogout={handleLogout} />;
-    case "admin":
-      return <AdminDashboard user={user} onLogout={handleLogout} />;
-    default:
-      return <LoginForm onLogin={handleLogin} />;
-  }
+// Show dashboard based on role
+switch (user.role) {
+  case "student":
+    return <StudentDashboard user={user} onLogout={handleLogout} />;
+  case "educator":
+    return <EducatorDashboard user={user} onLogout={handleLogout} />;
+  case "admin":
+    return <AdminDashboard user={user} onLogout={handleLogout} />;
+  default:
+    return <LoginForm onLogin={handleLogin} />;
+}
 }
 
 // Login form component
@@ -68,12 +87,8 @@ function LoginForm({ onLogin }) {
         flexDirection: "column",  // stack vertically
         alignItems: "center",     // center horizontally
         minHeight: "100vh",
-         padding: "400px 20px 40px 20px",
+         padding: "400px 20px 200px 20px",
         boxSizing: "border-box",
-        backgroundImage: `url(${aquariumBg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
       }}
     >
       <form
@@ -112,11 +127,6 @@ function LoginForm({ onLogin }) {
           Login
         </button>
       </form>
-
-      {/* Footer below */}
-      <div style={{ marginTop: "100px", width: "100%" }}>
-        <Footer />
-      </div>
     </div>
   );
 }

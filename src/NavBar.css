@@ -1,14 +1,20 @@
 body {
   font-family: 'Dancing Script', cursive;
-  background-color: lightblue; /* replace "light" with a valid color */
-  background-image: url('./assets/aquarium-bg.avif'); /* relative path to your image */
-  background-size: cover;
-  background-position: center;
+
+  /* background settings */
+  background-image: url('./assets/Background.jpeg');
+  background-size: cover;          /* fills viewport, keeps aspect ratio */
+  background-position: center top; /* top center of image aligns with top */
   background-repeat: no-repeat;
-  min-height: 100vh;
-  padding-bottom: 40px;
-  margin: 0; /* ensure no default body margin */
+
+  padding-top: 150px;              /* space for navbar */
+  min-height: 100vh;               /* always full viewport height */
+
+  display: flex;
+  flex-direction: column;
+  margin: 0;
 }
+
 
 
 html, body {
@@ -21,15 +27,14 @@ html, body {
 
 .navbar {
   position: fixed;           /* make it stick at the top */
-  top: 10px;                 /* small space from top */
   width: 100%;
-  background-color: darkblue; /* background color */
-  padding: 10px 0;           /* top & bottom padding */
+  background-color: #00008b; /* background color */
+  padding: 10px;           /* top & bottom padding */
   display: flex;             
   justify-content: space-around; /* spreads items evenly */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px #0000001a;
   z-index: 1000;
-  margin-top: 0;            
+  top: 80px;            
 }
 
 .navbar ul {
@@ -57,7 +62,11 @@ html, body {
 }
 
 .landing {
-  padding-top: 80px; /* adjust based on navbar height */
+  flex: 1;                         /* fill remaining space */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;         /* vertically center hero content */
+  padding-top: 150px;              /* space for navbar */
 }
 
 .hero h1 {
@@ -86,4 +95,56 @@ html, body {
   height: 360px;
   width: auto;
   object-fit: contain;
+}
+
+.top-header {
+  position: fixed;
+  left: 4px;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+
+.top-header-logo {
+  height: 100%;              
+  width: auto;
+  object-fit: contain;      
+  max-height: 70px;          
+  margin-right: 15px;
+}
+
+
+.top-header-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+#root {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.chatbox-wrapper {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  z-index: 5000;
 }

@@ -10,6 +10,6 @@ import FakeChat from './FakeChat.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <FakeChat/>
+    <MainRouter/>
   </StrictMode>,
 )

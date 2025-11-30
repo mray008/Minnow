@@ -4,17 +4,18 @@ export default function Footer() {
   const footerStyle = {
     textAlign: "left",      // align text to the left
     padding: "20px 40px",
-    background: "#7ec9e9",
+    background: "#00008b",
     marginTop: "40px",
-    color: "#2C3E50",
+    color: "white",
   };
 
   const textStyle = {
     margin: "5px 0",
+    color: "#f8f8f8",
   };
 
   const linkStyle = {
-    color: "#2C3E50",
+    color: "#f8f8f8",
     textDecoration: "none",
   };
 
