@@ -49,25 +49,26 @@
 .arrow {
   background: none;
   border: none;
-  font-size: 3rem;       /* keeps the visible arrow size */
   cursor: pointer;
-  padding: 40px;         /* bigger clickable area */
-  color: #3B2F2F;
-  font-weight: bold;
-  transition: 0.2s;
-  position: absolute;
-  top: 50%;              /* vertically center relative to slide-box */
-  transform: translateY(-50%);              /* Was struggling with the UI/UX part where the user doesn't have to move their mouse back
-                                                                and forth to click to the next image so I consulted with chatGPT for help*/
+  padding: 30px;
+  position: absolute;   /* absolute positioning relative to slide-box */
+  top: 50%;             /* vertically center */
+  transform: translateY(-50%);
+  z-index: 10;          /* on top of image */
 }
 
-.left-arrow {
-  left: -60px; /* distance from slide-box left */
+.arrow-img {
+  width: 100px;
+  height:auto;
+  object-fit: contain;
 }
 
-.right-arrow {
-  right: -60px; /* distance from slide-box right */
+.left-arrow { 
+  left: -220px;
+  
 }
+.right-arrow { right: -220px; }
+
 
 .arrow:hover {
   color: #6B4F4F;
@@ -75,5 +76,5 @@
 
 .about-container {
   text-align: center;
-  padding: 160px 20px 40px; /* pushes it down from navbar */
+  padding: 30px 20px 40px; /* pushes it down from navbar */
 }

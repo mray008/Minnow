@@ -2,11 +2,20 @@ import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Login from "./Login.jsx";
 import "./NavBar.css";
-import aquariumBg from './assets/Background.jpeg';
+import background from './assets/Background.jpeg';
 import AboutUs from "./AboutUs.jsx";
 import Footer from "./Footer.jsx";
 import ContactUs from "./ContactUs.jsx";
 import minnowLogo from "./assets/MinnowLogo2.png";
+
+function TopHeader() {
+  return (
+    <header className="top-header">
+      <img src={minnowLogo} alt="Minnow Logo" className="top-header-logo" />
+      <h1 className="top-header-title">Minnow</h1>
+    </header>
+  );
+}
 
 //  NavBar component
 function NavBar() {
@@ -49,40 +58,40 @@ export default function MainRouter() {
 
   return (
     <Router basename="/Minnow">
+      <div className="background-wrapper">
+      <TopHeader />
       <NavBar />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            !showLogin ? (
-              <div
-                className="landing"
-                style={{
-                  backgroundImage: `url(${aquariumBg})`,
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-                  minHeight: "100vh",
-                  paddingBottom: "40px",
-                }}
-              >
-                <Hero onLoginClick={() => setShowLogin(true)} />
-                <div style={{ marginTop: "150px" }}>
-          <Footer />
-        </div>
-              </div>
-            ) : (
-              <Login />
-            )
-          }
-        />
-        <Route path="/about" element={<AboutUs />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/contact" element={<ContactUs />} />
-      </Routes>
+
+      <div className="page-content">
+        <Routes>
+          <Route
+            path="/"
+            element={
+              !showLogin ? (
+                <div
+                  className="landing"
+                >
+                  <Hero onLoginClick={() => setShowLogin(true)} />
+                </div>
+              ) : (
+                <Login />
+              )
+            }
+          />
+
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/contact" element={<ContactUs />} />
+        </Routes>
+      </div>
+
+      
+      <Footer />
+      </div>
     </Router>
   );
 }
+
 
 
 
