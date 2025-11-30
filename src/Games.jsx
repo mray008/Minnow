@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { redirectToLoginForGame } from "./Login.jsx";
+import {Link} from "react-router-dom";
 
 // Game navigation and login redirect handling implemented with assistance from ChatGPT
 
@@ -42,6 +43,9 @@ export default function Games({ user }) {
         <button onClick={() => handleGameClick("/matching-game")}>
           Matching Game
         </button>
+        <button onClick={() => handleGameClick("/BingoGame")}>
+  Bingo
+</button>
         <button onClick={() => handleGameClick("/another-game")}>
           Another Game
         </button>

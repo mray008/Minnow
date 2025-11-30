@@ -257,8 +257,7 @@ function finishPlayerTurn(userAns) {
 
     return newBoard;
   });
-    return newBoard;
-  });
+
 
   // Cleanup
   setUserAnswer('');
@@ -417,7 +416,7 @@ function playerSteal() {
       {/* Controls */}
       <div className="bingo-controls">
         {!currentQuestion && <button onClick={startGame}>Start Game</button>}
-        {/*TPlayer's Question is taken from their question pool.  */}
+        {/*Player's Question is taken from their question pool.  */}
         {turn === 'player' && currentQuestion && (
           <div className="question-box">
             <p>Player's Turn</p>

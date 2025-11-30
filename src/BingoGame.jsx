@@ -1,11 +1,14 @@
 import { useState } from 'react';
+
 import Bingo from './Bingo';
+
 import './BingoStyle.css';
 
 export default function BingoGame() {
   const [gameSettings, setGameSettings] = useState(null);
 
   function handleStart(settings) {
+    
     setGameSettings(settings);
   }
 //sets the settings to null and goes back to Menu screen 
