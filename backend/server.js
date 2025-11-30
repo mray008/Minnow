@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import connection from "./database/database.js";
+import connection from "./database/database.js"; //AI added.
 import { users } from "./users.js";
 
 const app = express();
@@ -77,6 +77,42 @@ app.post("/register", (req, res) => {
           })
         }
       }
+    }
+  );
+});
+
+//Used AI to write this endpoint
+app.post("/change-password", (req, res) => {
+  const { username, currentPassword, newPassword } = req.body;
+  if (!username || !currentPassword || !newPassword) {
+    return res.status(400).json({ message: "Missing fields" });
+  }
+
+  // Verify current password
+  connection.execute(
+    "select * from users where username=? and password=?",
+    [username, currentPassword],
+    function (err, result) {
+      if (err) {
+        return res.status(500).json({ message: "Database error", error: err });
+      }
+      if (!result || result.length !== 1) {
+        return res
+          .status(403)
+          .json({ message: "Current password is incorrect or user not found" });
+      }
+
+      // Update to new password
+      connection.execute(
+        "update users set password=? where username=?",
+        [newPassword, username],
+        function (err2, result2) {
+          if (err2) {
+            return res.status(500).json({ message: "Database error", error: err2 });
+          }
+          return res.json({ status: 200, message: "Password updated successfully" });
+        }
+      );
     }
   );
 });

@@ -8,8 +8,8 @@ import aquariumBg from './assets/Background.jpeg';
 export default function Login() {
   const [user, setUser] = useState(null);
 //chatgpt was used to troubleshoot here:
-  //const BACKEND_URL = "https://minnow.onrender.com";
-  const BACKEND_URL = "http://localhost:5000";
+  const BACKEND_URL = "https://minnow.onrender.com";
+  //const BACKEND_URL = "http://localhost:5000";
 
   const handleLogin = async (username, password) => {
     try {
