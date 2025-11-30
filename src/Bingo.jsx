@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import BingoGame from './BingoGame';
 import './BingoStyle.css';
 
 // obtains random questions for the board
@@ -112,18 +113,7 @@ function generateBoard(maxAnswer, size = 5, operation) {
       }
     }
   }
-  for (let row = 0; row < size; row++) {
-    board[row] = [];
-    for (let col = 0; col < size; col++) {
-      if (row === center && col === center) {
-        board[row][col] = freeCell();
-      } else {
-        const [question, answer] = selectedQuestions[qIndex];
-        board[row][col] = createCell(question, answer);
-        qIndex++;
-      }
-    }
-  }
+
 
   return board;
 }
@@ -324,14 +314,14 @@ function startCPUTurn() {
     setCpuTimeLeft(prev => {
       if (prev === 0) {
         clearInterval(intervalId);
-        if(Math.random()>= .8){
+        if(Math.random()> .2){
 
         cpuFinishTurn(next);
          return 0;
         }    else
            setTurn("player");
     startTurn();     // ← player’s next question
-    return 0;
+   return 0;
        
       }
       return prev - 1;
@@ -406,7 +396,6 @@ function playerSteal() {
 }
 
 
-  if (!board.length) return <div>Loading Bingo board...</div>;
   if (!board.length) return <div>Loading Bingo board...</div>;
 
   return (

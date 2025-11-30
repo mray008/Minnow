@@ -1,8 +1,10 @@
 .bingo-container {
+  padding-top: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height:100vh;
+  background-color:transparent;
 }
 
 .boards-container {

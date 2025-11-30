@@ -7,8 +7,9 @@ import Login from './Login.jsx'
 import FakeChat from './FakeChat.jsx'
 import BingoGame from './BingoGame.jsx'
 
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BingoGame/>
+    <MainRouter/>
   </StrictMode>,
 )

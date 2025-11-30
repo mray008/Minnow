@@ -44,8 +44,8 @@ export default function Games({ user }) {
           Matching Game
         </button>
         <button onClick={() => handleGameClick("/BingoGame")}>
-  Bingo
-</button>
+         Bingo
+        </button>
         <button onClick={() => handleGameClick("/another-game")}>
           Another Game
         </button>

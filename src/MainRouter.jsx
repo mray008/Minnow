@@ -60,7 +60,7 @@ function Hero({ onLoginClick }) {
 //  MainRouter component
 export default function MainRouter() {
   const [showLogin, setShowLogin] = useState(false);
-  const [user, setUser] = useState(null);
+const [user, setUser] = useState({ name: "TestUser" });
 
   return (
     <Router basename="/Minnow">
