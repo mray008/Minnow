@@ -1,10 +1,11 @@
 //I used the react.dev/learn website to learn a lot of the concepts used in this module.
 import React, { useEffect, useRef, useState } from "react";
 import "./FakeChat.css";
+import garf from "./assets/garf.png";
 
 export default function FakeChat({
   partnerName = "Garfield",
-  avatar = "./assets/garf.png",
+  avatar = garf,
  
 }) {
   const [messages, setMessages] = useState([
