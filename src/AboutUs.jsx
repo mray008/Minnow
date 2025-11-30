@@ -54,10 +54,8 @@ export default function AboutUs() {
     const current = slides[index];
 
     return (
-        <div
-  className="landing"
->
-  <div className="about-container" style={{ maxWidth: "100%", margin: "0 auto" }}>
+        <div className="landing">
+        <div className="about-container" style={{ maxWidth: "100%", margin: "0 auto" }}>
 
         <h1 className="about-title">Meet the Team</h1>
 

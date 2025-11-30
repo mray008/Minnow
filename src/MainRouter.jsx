@@ -7,6 +7,10 @@ import AboutUs from "./AboutUs.jsx";
 import Footer from "./Footer.jsx";
 import ContactUs from "./ContactUs.jsx";
 import minnowLogo from "./assets/MinnowLogo2.png";
+import FakeChat from "./FakeChat.jsx";
+import ChatbotWrapper from "./ChatbotWrapper";
+import MatchingGame from "./MatchingGame.jsx";
+import Games from "./Games.jsx";
 
 function TopHeader() {
   return (
@@ -24,7 +28,7 @@ function NavBar() {
       <ul>
         <li><Link to="/">Home</Link></li>
         <li><a href="#Courses">Courses</a></li>
-        <li><a href="#demo">Games</a></li>
+        <li><Link to="/games">Games</Link></li>
         <li><Link to="/about">About Us</Link></li>
         <li><Link to="/login">Login</Link></li>
         <li><Link to="/contact">Contact Us</Link></li>
@@ -55,6 +59,7 @@ function Hero({ onLoginClick }) {
 //  MainRouter component
 export default function MainRouter() {
   const [showLogin, setShowLogin] = useState(false);
+  const [user, setUser] = useState(null);
 
   return (
     <Router basename="/Minnow">
@@ -82,10 +87,11 @@ export default function MainRouter() {
           <Route path="/about" element={<AboutUs />} />
           <Route path="/login" element={<Login />} />
           <Route path="/contact" element={<ContactUs />} />
+          <Route path="/games" element={<Games user={user} />} />
+          <Route path="/matching-game" element={<MatchingGame />} />
         </Routes>
       </div>
-
-      
+      <ChatbotWrapper />
       <Footer />
       </div>
     </Router>

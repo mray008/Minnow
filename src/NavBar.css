@@ -141,3 +141,10 @@ html, body {
   display: flex;
   flex-direction: column;
 }
+
+.chatbox-wrapper {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  z-index: 5000;
+}
