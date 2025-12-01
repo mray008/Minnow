@@ -1,0 +1,55 @@
+.courses-page {
+  padding: 120px 20px 40px 20px; /* top padding for navbar/TopHeader */
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.courses-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 50px;
+  color: #3B2F2F;
+  font-weight: bold;
+}
+
+.courses-list {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.course-card {              /* Used chatgpt to implement this one*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.course-card:hover {
+  transform: translateY(-5px);
+}
+
+.course-image {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.course-header {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: #00008b;
+}
+
+.course-description {
+  font-size: 1.2rem;
+  text-align: center;
+  color: #333;
+  max-width: 700px;
+}

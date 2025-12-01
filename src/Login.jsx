@@ -10,14 +10,13 @@ export function redirectToLoginForGame(navigate, targetPath) {
   navigate("/login"); 
 }
 
-export default function Login() {
-  const [user, setUser] = useState(null); // you were missing this
+export default function Login({ user, setUser }) {
+
 const navigate = useNavigate(); // <-- add this
 
   
 //chatgpt was used to troubleshoot here:
   const BACKEND_URL = "https://minnow-p3v2.onrender.com";
-  //const BACKEND_URL = "http://localhost:5000";
 
   const handleLogin = async (username, password) => {
     try {
@@ -36,7 +35,7 @@ const navigate = useNavigate(); // <-- add this
         const redirectPath = localStorage.getItem("redirectAfterLogin");
         if (redirectPath) {
           localStorage.removeItem("redirectAfterLogin");
-          navigate(redirectPath); // <-- use navigate instead
+          navigate(redirectPath); 
 }
 
 

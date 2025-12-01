@@ -1,77 +1,42 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import "./Courses.css";
+import mathImage from "./assets/math.jpg"; 
+import englishImage from "./assets/english.png";
+import scienceImage from "./assets/science.jpeg";
 
-export default function Courses({ user }) {
+const coursesData = [
+  {
+    title: "Math",
+    image: mathImage,
+    description: "Explore algebra, geometry, calculus, and more. Build your problem-solving skills step by step.",
+    game: "/BingoGame",
+  },
+  {
+    title: "Science",
+    image: scienceImage,
+    description: "Dive into biology, chemistry, physics, and environmental science. Learn through experiments and real-world examples.",
+    game: "/matching-game",
+  },
+];
+
+export default function Courses() {
   const navigate = useNavigate();
 
   const handleGameClick = (gamePath) => {
     navigate(gamePath);
   };
-
+  
   return (
-    <div
-      style={{
-        minHeight: "calc(100vh - 200px)",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "flex-start",  
-        padding: "40px 80px",  
-        marginTop: "120px"     
-      }}
-    >
-      <h2 style={{ marginBottom: "30px" }}>Your Courses</h2>
-
-     
-      <div style={{ marginBottom: "40px" }}>
-        <p style={{ fontSize: "20px", fontWeight: "bold", marginBottom: "10px" }}>
-          Science
-        </p>
-        <p style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "10px", color: "grey"}}>
-           <em>Assignments:</em>
-        </p>
-
-                <button
-        onClick={() => handleGameClick("/matching-game")}
-        style={{
-          marginTop: "20px",
-          padding: "10px 20px",
-          fontSize: "1rem",
-          backgroundColor: "#3B2F2F",
-          color: "#fff",
-          border: "none",
-          borderRadius: "8px",
-          cursor: "pointer",
-        }}
-      >
-        Matching Game
-      </button>
-      </div>
-
-      
-      <div style={{ marginBottom: "40px" }}>
-        <p style={{ fontSize: "20px", fontWeight: "bold", marginBottom: "10px" }}>
-          Math
-        </p>
-          <p style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "10px", color: "grey"}}>
-          <em>Assignments:</em>
-        </p>
-
-          
-               <button
-        onClick={() => handleGameClick("/BingoGame")}
-        style={{
-          marginTop: "20px",
-          padding: "10px 20px",
-          fontSize: "1rem",
-          backgroundColor: "#3B2F2F",
-          color: "#fff",
-          border: "none",
-          borderRadius: "8px",
-          cursor: "pointer",
-        }}
-      >
-        Bingo Game
-      </button>
+    <div className="courses-page">
+      <h1 className="courses-title">Our Courses</h1>
+      <div className="courses-list">
+        {coursesData.map((course, index) => (
+          <div key={index} className="course-card" onClick={() => handleGameClick(course.game)}>
+            {course.image && <img src={course.image} alt={course.title} className="course-image" />}
+            <h2 className="course-header">{course.title}</h2>
+            <p className="course-description">{course.description}</p>
+          </div>
+        ))}
       </div>
     </div>
   );

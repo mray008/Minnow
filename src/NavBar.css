@@ -34,7 +34,8 @@ html, body {
   justify-content: space-around; /* spreads items evenly */
   box-shadow: 0 2px 5px #0000001a;
   z-index: 1000;
-  top: 80px;            
+  top: 80px;
+  transition: transform 0.3s ease;           
 }
 
 .navbar ul {
@@ -148,3 +149,10 @@ html, body {
   right: 25px;
   z-index: 5000;
 }
+
+.navbar-hidden {
+  transform: translateY(-100%);  /* moves navbar out of view */
+  transition: transform 0.3s ease;
+}
+
+
