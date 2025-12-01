@@ -12,6 +12,7 @@ import ChatbotWrapper from "./ChatbotWrapper";
 import MatchingGame from "./MatchingGame.jsx";
 import Games from "./Games.jsx";
 import BingoGame from "./BingoGame.jsx";
+import Courses from "./Courses.jsx";
 
 function TopHeader() {
   return (
@@ -28,7 +29,7 @@ function NavBar() {
     <nav className="navbar">
       <ul>
         <li><Link to="/">Home</Link></li>
-        <li><a href="#Courses">Courses</a></li>
+        <li><Link to="/Courses">Courses</Link></li>
         <li><Link to="/games">Games</Link></li>
         <li><Link to="/about">About Us</Link></li>
         <li><Link to="/login">Login</Link></li>
@@ -91,6 +92,7 @@ const [user, setUser] = useState({ name: "TestUser" });
           <Route path="/games" element={<Games user={user} />} />
           <Route path="/matching-game" element={<MatchingGame />} />
           <Route path="/BingoGame" element = {<BingoGame /> } />
+          <Route path="/Courses" element = {<Courses /> } />
         </Routes>
       </div>
       <ChatbotWrapper />
