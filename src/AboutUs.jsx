@@ -6,8 +6,8 @@ import jayImg from "./assets/jay-pic.jpg";
 import leeImg from "./assets/lee-pic.png";
 import madsImg from "./assets/mads-pic.jpg";
 import stanImg from "./assets/stan-pic.jpg";
-import Footer from "./Footer.jsx";
-import aquariumBg from './assets/Background.jpeg';
+import RightBlueFish from './assets/blue-fish-right.png';
+import LeftBlueFish from './assets/blue-fish-left.png';
 
 export default function AboutUs() {
     const slides = [
@@ -54,21 +54,15 @@ export default function AboutUs() {
     const current = slides[index];
 
     return (
-        <div
-  className="landing"
-  style={{
-    backgroundImage: `url(${aquariumBg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-                      minHeight: "100vh",
-    minHeight: "100vh",  // full viewport height
-    paddingBottom: "40px",
-  }}
->
-  <div className="about-container" style={{ maxWidth: "100%", margin: "0 auto" }}>
+        <div className="landing">
+        <div className="about-container" style={{ maxWidth: "100%", margin: "0 auto" }}>
+
+        <h1 className="about-title">Meet the Team</h1>
+
       <div className="slide-box">
-          <button onClick={prevSlide} className="arrow left-arrow">❮</button>
+           <button onClick={prevSlide} className="arrow left-arrow">
+                        <img src={LeftBlueFish} alt="Previous" className="arrow-img" />
+                    </button>
 
           <div className="slide-content">
               <img src={current.img} alt={current.name} className="team-img" />
@@ -76,11 +70,9 @@ export default function AboutUs() {
               <p className="team-desc">{current.desc}</p>
           </div>
 
-          <button onClick={nextSlide} className="arrow right-arrow">❯</button>
-      </div>
-
-      <div style={{ marginTop: "150px" }}>
-          <Footer />
+           <button onClick={nextSlide} className="arrow right-arrow">
+                        <img src={RightBlueFish} alt="Next" className="arrow-img" />
+                    </button>
       </div>
   </div>
 </div>

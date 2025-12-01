@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
-import connection from "./database/database.js"; //AI added.
 import { users } from "./users.js";
+import connection from "./database/database.js";
 
 const app = express();
 app.use(cors()); // allow requests from frontend

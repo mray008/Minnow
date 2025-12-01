@@ -1,0 +1,75 @@
+.bingo-container {
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height:100vh;
+  background-color:transparent;
+}
+
+.boards-container {
+  display: flex;
+  gap: 40px; /* space between boards */
+  margin-top: 20px;
+}
+
+.player-board, .cpu-board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bingo-row {
+  display: flex;
+}
+
+.bingo-cell {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2px;
+}
+
+.marked {
+  background-color: lightgreen;
+}
+
+.wrong {
+  background-color: lightcoral;
+}
+
+.bingo-cell.wrong{
+    background-color: red;
+    color: white;
+}
+.create-game{
+    align-items: center;
+    display:flex;
+}
+.game-wrapper {
+  display: flex;
+  flex-direction: column;       /* stack menu or bingo vertically */
+  justify-content: center;      /* vertical centering */
+  align-items: center;          /* horizontal centering */
+  min-height: calc(100vh - 200px); /* leave space for your site header/footer */
+  padding: 20px;
+  text-align: center;
+
+}
+.option-group{
+    align-items: center;
+       display:flex;
+       flex-direction:column;
+       gap: 5px;
+    
+}
+.option-group2{
+        align-items: center;
+       display:flex;
+       flex-direction:column;
+       gap: 5px;
+}
+

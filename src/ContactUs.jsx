@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import Footer from "./Footer.jsx";
 import "./NavBar.css";
-import aquariumBg from './assets/Background.jpeg';
 
 export default function ContactUs() {
   const [formData, setFormData] = useState({
@@ -24,10 +22,8 @@ export default function ContactUs() {
   };
 
   return (
-    <div className="contact-page" style={{ minHeight: "100vh", padding: "40px", backgroundImage: `url(${aquariumBg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat", }}>
+    <div className="contact-page" style={{ minHeight: "100vh", padding: "190px 20px 0px 20px",
+    }}>
       <h1 style={{ textAlign: "center", color: "#3B2F2F" }}>Contact Us</h1>
       <p style={{ textAlign: "center", maxWidth: "600px", margin: "10px auto 40px auto" }}>
         Have questions or feedback? Fill out the form below and we’ll get back to you as soon as possible.
@@ -85,10 +81,6 @@ export default function ContactUs() {
           Thank you for contacting us!
         </p>
       )}
-
-      <div style={{ marginTop: "100px" }}>
-        <Footer />
-      </div>
     </div>
   );
 }
