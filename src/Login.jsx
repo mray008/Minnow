@@ -9,8 +9,7 @@ export default function Login() {
   const [user, setUser] = useState(null);
 //chatgpt was used to troubleshoot here:
   const BACKEND_URL = "https://minnow.onrender.com";
-  //const BACKEND_URL = "http://localhost:5000";
-
+  
   const handleLogin = async (username, password) => {
     try {
       const res = await fetch(`${BACKEND_URL}/login`, {
@@ -111,6 +110,20 @@ function LoginForm({ onLogin }) {
           }}
         >
           Login
+        </button>
+        <button
+          type="submit"
+          style={{
+            padding: "12px",
+            fontSize: "1.1rem",
+            backgroundColor: "#3B2F2F",
+            color: "#fff",
+            border: "none",
+            borderRadius: "8px",
+            cursor: "pointer",
+          }}
+        >
+          Register
         </button>
       </form>
 
