@@ -32,3 +32,18 @@
 .welcome button:hover {
   background: #d93636;
 }
+
+/* AI assitance for moving AI button out of sign form, and for adjust it.*/
+.register-button {
+  display: block;
+  align-self: center;
+  margin-top: 30px;
+  padding: 12px 20px;
+  font-size: 2.1rem;
+  background-color: #3B2F2F;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: auto;
+}

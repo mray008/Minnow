@@ -11,6 +11,7 @@ import FakeChat from "./FakeChat.jsx";
 import ChatbotWrapper from "./ChatbotWrapper";
 import MatchingGame from "./MatchingGame.jsx";
 import Games from "./Games.jsx";
+import BingoGame from "./BingoGame.jsx";
 
 function TopHeader() {
   return (
@@ -59,7 +60,7 @@ function Hero({ onLoginClick }) {
 //  MainRouter component
 export default function MainRouter() {
   const [showLogin, setShowLogin] = useState(false);
-  const [user, setUser] = useState(null);
+const [user, setUser] = useState({ name: "TestUser" });
 
   return (
     <Router basename="/Minnow">
@@ -89,6 +90,7 @@ export default function MainRouter() {
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/games" element={<Games user={user} />} />
           <Route path="/matching-game" element={<MatchingGame />} />
+          <Route path="/BingoGame" element = {<BingoGame /> } />
         </Routes>
       </div>
       <ChatbotWrapper />
