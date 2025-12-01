@@ -16,6 +16,7 @@ export default function BingoGame() {
     setGameSettings(null);
   }
 
+  //creating the Bingo game using the settings object created from the selection of the settings.
   return (
     <div className="game-wrapper">
       {!gameSettings ? (
@@ -43,7 +44,7 @@ function CreateGameScreen({ onStart }) {
     medium: 20,
     hard: 25
   };
-
+//creates the settings object, which holds the operation, maxAnswer and difficulty.
   function handleStartClick() {
      const maxAnswer = difficulty === 'custom' ? Number(customMax) : difficultyMap[difficulty];
     const settings = {
@@ -54,6 +55,7 @@ function CreateGameScreen({ onStart }) {
     };
     onStart(settings);
   }
+//drop down and options for the bingo game along with the start button.
 
   return (
     <div className="create-game">

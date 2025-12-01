@@ -11,11 +11,8 @@ export default function Games({ user }) {
   const navigate = useNavigate();
 
   const handleGameClick = (gamePath) => {
-    if (!user) {
-      redirectToLoginForGame(navigate, gamePath);
-    } else {
       navigate(gamePath);
-    }
+
   };
 
   return (
