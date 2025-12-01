@@ -2,8 +2,6 @@
 // stores the bank of questions that matching game can read and pull from.
 // questions are divided into groups "easy," "medium," and "hard"
 
-import { defineConfig } from "vite";
-
 // for now, all questions will be based on biology
 
 const MatchingGameQuestionBank = {

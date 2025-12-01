@@ -1,25 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./MatchingGame.css";
 // sfx
 import correctpop from "./assets/MinnowSFX/correctpop.wav"
 import incorrectpop from "./assets/MinnowSFX/incorrectpop.wav"
 
-const wordsData = [
-  { id: 1, word: "Osmosis", definition: "Movement of water through a semi-permeable membrane." },
-  { id: 2, word: "Photosynthesis", definition: "Process by which plants convert sunlight into energy." },
-  { id: 3, word: "Evaporation", definition: "Process of a liquid turning into vapor." },
-];
+// question bank
+import MatchingGameQuestionBank from "./MatchingGameQuestionBank.jsx"
 
 export default function MatchingGame() {
-  const [words, setWords] = useState(wordsData);
-  const [definitions, setDefinitions] = useState(shuffle([...wordsData]));
   const [matches, setMatches] = useState({});
   const [draggedWord, setDraggedWord] = useState(null);
   const [feedback, setFeedback] = useState({}); // for visual feedback (correct/incorrect)
   const [isComplete, setIsComplete] = useState(false);
+  const [difficulty, setDifficulty] = useState("easy");
+  const [correctInDifficulty, setCorrectInDifficulty] = useState(0); 
+  const [totalCorrect, setTotalCorrect] = useState(0);
+  const [questionSet, setQuestionSet] = useState([]); 
+  const initialWords = [];
+  const [words, setWords] = useState(initialWords);
+  const [definitions, setDefinitions] = useState([]);
+
+
+  useEffect(() => {
+    loadNewQuestions("easy");
+  }, []);
+
+  function loadNewQuestions(level) {
+    const pool = MatchingGameQuestionBank[level];
+    if (!pool) {
+      console.error("Invalid difficulty:", level);
+      return; // this fix suggested by AI to prevent crashing
+    }
+    const chosen = shuffle(pool).slice(0, 3);
+    setQuestionSet(chosen);
+    setWords(chosen);
+    setDefinitions(shuffle([...chosen]));
+  }
 
   function shuffle(array) {
-    return array.sort(() => Math.random() - 0.5);
+    return [...array].sort(() => Math.random() - 0.5);
   }
 
   function handleDragStart(word) {
@@ -36,9 +55,45 @@ export default function MatchingGame() {
       setFeedback((prev) => ({ ...prev, [definition.id]: "correct" }));
       new Audio(correctpop).play(); // plays good ding
 
-      if (Object.keys(matches).length + 1 === wordsData.length) {
-        setIsComplete(true);
+      const newTotal = totalCorrect + 1;
+      const newDiffCount = correctInDifficulty + 1;
+      setTotalCorrect(newTotal);
+      setCorrectInDifficulty(newDiffCount);
+
+      // after five easy corrects, move to medium
+      if (difficulty === "easy" && newDiffCount >= 5) {
+        setDifficulty("medium");
+        setCorrectInDifficulty(0);
+        setMatches({});
+        setFeedback({});
+        loadNewQuestions("medium");
+        return;
       }
+
+      // after five medium corrects, move to hard
+      if (difficulty === "medium" && newDiffCount >= 5) {
+        setDifficulty("hard");
+        setCorrectInDifficulty(0);
+        setMatches({});
+        setFeedback({});
+        loadNewQuestions("hard");
+        return;
+      }
+
+      // finish game after fifteen corrects
+      if (newTotal >= 15) {
+        setIsComplete(true);
+        return;
+      }
+
+      // when words run out
+      if (words.length === 1) {
+        loadNewQuestions(difficulty);
+        setMatches({});
+        setFeedback({});
+        return;
+      }
+
     } else {
       // Incorrect match
       setFeedback((prev) => ({ ...prev, [definition.id]: "incorrect" }));
@@ -58,11 +113,13 @@ export default function MatchingGame() {
   }
 
   function resetGame() {
-    setWords(wordsData);
-    setDefinitions(shuffle([...wordsData]));
+    setDifficulty("easy");
+    setCorrectInDifficulty(0);
+    setTotalCorrect(0);
     setMatches({});
     setFeedback({});
     setIsComplete(false);
+    loadNewQuestions("easy");
   }
 
   return (
