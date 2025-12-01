@@ -17,7 +17,7 @@ import EducatorDashboard from "./EducatorDashboard.jsx";
 import AdminDashboard from "./AdminDashboard.jsx";
 import Courses from "./Courses.jsx";
 import BingoGame from "./BingoGame.jsx";
-import Courses from "./Courses.jsx";
+
 
 function TopHeader() {
   return (
