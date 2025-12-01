@@ -7,14 +7,6 @@ import incorrectpop from "./assets/MinnowSFX/incorrectpop.wav"
 // question bank
 import MatchingGameQuestionBank from "./MatchingGameQuestionBank.jsx"
 
-/** old question bank
- * const wordsData = [
- * { id: 1, word: "Osmosis", definition: "Movement of water through a semi-permeable membrane." },
- * { id: 2, word: "Photosynthesis", definition: "Process by which plants convert sunlight into energy." },
- * { id: 3, word: "Evaporation", definition: "Process of a liquid turning into vapor." },
- * ];
- */
-
 export default function MatchingGame() {
   const [matches, setMatches] = useState({});
   const [draggedWord, setDraggedWord] = useState(null);
