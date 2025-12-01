@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./Courses.css";
 import mathImage from "./assets/math.jpg"; 
 import englishImage from "./assets/english.png";
