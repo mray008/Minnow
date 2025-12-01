@@ -87,9 +87,11 @@ export default function MatchingGame() {
       }
 
       // when words run out
-      if (Object.keys(matches).length + 1 === questionSet.length) {
+      if (words.length === 1) {
         loadNewQuestions(difficulty);
         setMatches({});
+        setFeedback({});
+        return;
       }
 
     } else {
