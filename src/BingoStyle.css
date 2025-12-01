@@ -49,7 +49,7 @@
     align-items: center;
     display:flex;
 }
-{/*Used chatgpt for help in creating the game-wrapper.*/}
+/*Used chatgpt for help in creating the game-wrapper.*/
 .game-wrapper {
   display: flex;
   flex-direction: column;     
