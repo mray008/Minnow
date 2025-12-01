@@ -204,7 +204,7 @@ function handleSubmit() {
   const userAns = parseInt(userAnswer);
   const correctA = currentQuestion[1];
 
-  // --- PLAYER SCORING (stealFlag = false) ---
+  //  if the stealflag isn't true, then add/subtract from  player's score normally
   if (!stealFlag) {
     if (userAns === correctA) {
       const points = calculateScore(Math.abs(correctA), timeLeft, 10);
@@ -270,12 +270,13 @@ function finishPlayerTurn(userAns) {
     }
     return false;
   }
-  function checkMainDiagonalWin(board) { return board.every((row, i) => row[i].marked); }
+  function checkMainDiagonalWin(board) 
+  { return board.every((row, i) => row[i].marked); }
   function checkAntiDiagonalWin(board) {
     const n = board.length;
     return board.every((row, i) => row[n - 1 - i].marked);
   }
-
+//function that checks every possiblity for a bingo.
   function checkWin(board) { return checkRowWin(board) || checkColWin(board) || checkMainDiagonalWin(board) || checkAntiDiagonalWin(board); }
 
   function calculateScore(answer, timeLeft, maxTime = 10) {
@@ -286,7 +287,7 @@ function finishPlayerTurn(userAns) {
 
   return points;
   }
-
+//kept the stolenscore simple, previous renditions caused a bug where score wasn't added.
   function calculateStolenScore(answer){
     return answer+35;
   }
@@ -340,14 +341,14 @@ function cpuFinishTurn(question) {
   if (turn !== "cpu" || gameOver) return;
 
   const correctA = question[1];
-
+{/*if the cell's answer equals the answer then it is marked true, with the help of the .css file it will be marked green  */}
   setCpuBoard(prev => {
     const updated = prev.map(row =>
       row.map(cell =>
         cell.answer === correctA ? { ...cell, marked: true } : cell
       )
     );
-
+{/* checks to see if the computer's board has won, if so shows alert that computer has won. */}
     if (checkWin(updated)) {
       setGameOver(true);
       setCpuFlag(false);
@@ -388,6 +389,7 @@ function playerSteal() {
     setTurn("player");
     startTurn();
   }
+  {/* handling if the player gets the question incorrect. */ }
   if(playerAns !== correctA && playerAns !== null){
     setScore(prev => prev - 50);
   }
