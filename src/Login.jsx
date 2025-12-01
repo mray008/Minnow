@@ -4,6 +4,7 @@ import EducatorDashboard from "./EducatorDashboard.jsx";
 import AdminDashboard from "./AdminDashboard.jsx";
 import Footer from "./Footer.jsx";
 import aquariumBg from './assets/Background.jpeg';
+import './Login.css'; //ADDED for styling regiter button, AI major helped
 
 export default function Login() {
   const [user, setUser] = useState(null);
@@ -111,21 +112,14 @@ function LoginForm({ onLogin }) {
         >
           Login
         </button>
-        <button
-          type="submit"
-          style={{
-            padding: "12px",
-            fontSize: "1.1rem",
-            backgroundColor: "#3B2F2F",
-            color: "#fff",
-            border: "none",
-            borderRadius: "8px",
-            cursor: "pointer",
-          }}
-        >
-          Register
-        </button>
       </form>
+
+<button
+  type="submit"
+  className="register-button" //AI moved styling to Login.css and added class
+    >
+      Register
+</button>
 
       {/* Footer below */}
       <div style={{ marginTop: "100px", width: "100%" }}>
