@@ -42,7 +42,7 @@ app.post("/login", (req, res) => {
 
 app.post("/register", (req, res) => {
   connection.execute(
-    "select * from user_information where username=?",
+    "select * from users where username=?",
     [
       req.body.username,
     ],
