@@ -37,7 +37,7 @@ function NavBar({ user }) {
       if (currentScroll > lastScroll.current && currentScroll > 50) {
         // scrolling down
         setHidden(true);
-      } else if (currentScroll < lastScroll.current) {
+      } else if (currentScroll < lastScroll.current) {      /* ChatGpt couldn't even help me out with this one but I'm leaving it here in case someone knows what to do*/
         // scrolling up
         setHidden(false);
       }
@@ -119,14 +119,14 @@ export default function MainRouter() {
           />
 
           <Route path="/about" element={<AboutUs />} />
-<Route path="/login" element={<Login user={user} setUser={setUser} />} />
+          <Route path="/login" element={<Login user={user} setUser={setUser} />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/games" element={<Games user={user} />} />
           <Route path="/matching-game" element={<MatchingGame />} />
           <Route path="/student-dashboard" element={<StudentDashboard user={user} />} />
-<Route path="/educator-dashboard" element={<EducatorDashboard user={user} />} />
-<Route path="/admin-dashboard" element={<AdminDashboard user={user} />} />
-<Route path="/courses" element={<Courses />} />
+          <Route path="/educator-dashboard" element={<EducatorDashboard user={user} />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard user={user} />} />
+          <Route path="/courses" element={<Courses />} />
         </Routes>
       </div>
       <ChatbotWrapper />

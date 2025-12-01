@@ -35,7 +35,7 @@ const navigate = useNavigate(); // <-- add this
         const redirectPath = localStorage.getItem("redirectAfterLogin");
         if (redirectPath) {
           localStorage.removeItem("redirectAfterLogin");
-          navigate(redirectPath); // <-- use navigate instead
+          navigate(redirectPath); 
 }
 
 
