@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Login from "./Login.jsx";
+import Register from "./Register.jsx"; // AI added this line
 import "./NavBar.css";
 import background from './assets/Background.jpeg';
 import AboutUs from "./AboutUs.jsx";
@@ -15,6 +16,7 @@ import StudentDashboard from "./StudentDashboard.jsx";
 import EducatorDashboard from "./EducatorDashboard.jsx";
 import AdminDashboard from "./AdminDashboard.jsx";
 import Courses from "./Courses.jsx";
+import BingoGame from "./BingoGame.jsx";
 
 function TopHeader() {
   return (
@@ -93,7 +95,7 @@ function Hero({ onLoginClick }) {
 //  MainRouter component
 export default function MainRouter() {
   const [showLogin, setShowLogin] = useState(false);
-  const [user, setUser] = useState(null);
+const [user, setUser] = useState({ name: "TestUser" });
 
   return (
     <Router basename="/Minnow">
@@ -120,6 +122,7 @@ export default function MainRouter() {
 
           <Route path="/about" element={<AboutUs />} />
           <Route path="/login" element={<Login user={user} setUser={setUser} />} />
+          <Route path="/register" element={<Register />} /> // 
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/games" element={<Games user={user} />} />
           <Route path="/matching-game" element={<MatchingGame />} />
@@ -127,6 +130,7 @@ export default function MainRouter() {
           <Route path="/educator-dashboard" element={<EducatorDashboard user={user} />} />
           <Route path="/admin-dashboard" element={<AdminDashboard user={user} />} />
           <Route path="/courses" element={<Courses />} />
+          <Route path="/BingoGame" element = {<BingoGame /> } />
         </Routes>
       </div>
       <ChatbotWrapper />
@@ -136,6 +140,6 @@ export default function MainRouter() {
   );
 }
 
-
+// The register element was added by AI
 
 

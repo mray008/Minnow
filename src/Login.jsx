@@ -16,7 +16,7 @@ const navigate = useNavigate(); // <-- add this
 
   
 //chatgpt was used to troubleshoot here:
-  const BACKEND_URL = "https://minnow.onrender.com";
+  const BACKEND_URL = "https://minnow-p3v2.onrender.com";
 
   const handleLogin = async (username, password) => {
     try {
@@ -73,6 +73,7 @@ switch (user.role) {
 function LoginForm({ onLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate(); //AI suggested adding this here as well
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -127,6 +128,16 @@ function LoginForm({ onLogin }) {
           Login
         </button>
       </form>
+ 
+      <button
+        type="button"
+        className="register-button"
+        onClick={() => navigate("/register")}
+      >
+        Register
+      </button>
     </div>
   );
 }
+
+// AI suggested the register button and its styling

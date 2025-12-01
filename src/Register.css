@@ -1,0 +1,95 @@
+/* AI added this file*/
+.register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 400px 20px 40px 20px;
+  box-sizing: border-box;
+}
+
+.register-form {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background: white;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.register-form h2 {
+  text-align: center;
+  color: #3B2F2F;
+  margin-bottom: 10px;
+}
+
+.register-form input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.register-form input:focus {
+  outline: none;
+  border-color: #3B2F2F;
+  box-shadow: 0 0 5px rgba(59, 47, 47, 0.2);
+}
+
+.register-form button {
+  padding: 12px;
+  font-size: 1.1rem;
+  background-color: #3B2F2F;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+}
+
+.register-form button:hover {
+  background-color: #2a1e1e;
+}
+
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.back-to-login {
+  display: block;
+  align-self: center;
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #666;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.back-to-login:hover {
+  background-color: #555;
+}
+
+/* Password Requirements Box */
+.password-requirements {
+  padding: 10px;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  font-size: 0.85rem;
+  white-space: pre-wrap;
+  color: #333;
+}
