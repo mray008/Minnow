@@ -1,4 +1,4 @@
-import ChangePasswordForm from "./ChangePasswordForm.jsx";
+import ChangePasswordForm from "./ChangePasswordForm.jsx"; //AI added this line, along with <ChangePasswordForm user={user} /> in the return statement
 
 //took some code from navbar.css and changed it up a bit to implement it here
 
