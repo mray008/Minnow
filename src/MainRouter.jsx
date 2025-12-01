@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Login from "./Login.jsx";
+import Register from "./Register.jsx"; // AI added this line
 import "./NavBar.css";
 import background from './assets/Background.jpeg';
 import AboutUs from "./AboutUs.jsx";
@@ -88,6 +89,7 @@ const [user, setUser] = useState({ name: "TestUser" });
 
           <Route path="/about" element={<AboutUs />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} /> // 
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/games" element={<Games user={user} />} />
           <Route path="/matching-game" element={<MatchingGame />} />
@@ -102,6 +104,6 @@ const [user, setUser] = useState({ name: "TestUser" });
   );
 }
 
-
+// The register element was added by AI
 
 
