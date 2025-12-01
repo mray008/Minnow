@@ -73,6 +73,7 @@ switch (user.role) {
 function LoginForm({ onLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate(); //AI suggested adding this here as well
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -127,6 +128,16 @@ function LoginForm({ onLogin }) {
           Login
         </button>
       </form>
+ 
+      <button
+        type="button"
+        className="register-button"
+        onClick={() => navigate("/register")}
+      >
+        Register
+      </button>
     </div>
   );
 }
+
+// AI suggested the register button and its styling

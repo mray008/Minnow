@@ -37,5 +37,5 @@ function validatePassword(password1, password2) {
   return null; // no errors
 }
 
-export { validatePassword, displayPasswordRequirements, isValidPassword }; //AI added this line for exporting functions
+export { validatePassword, displayPasswordRequirements, isValidPassword, passwordMatch }; //AI added (most of) this line for exporting functions
 //Many of the lines were suggested by AI
