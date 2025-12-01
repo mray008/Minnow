@@ -1,43 +1,36 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { redirectToLoginForGame } from "./Login.jsx";
-import {Link} from "react-router-dom";
 
-// Game navigation and login redirect handling implemented with assistance from ChatGPT
-
-// Footer and layout adjustments for Games page guided by ChatGPT
-
-export default function Games({ user }) {
+export default function Courses({ user }) {
   const navigate = useNavigate();
 
   const handleGameClick = (gamePath) => {
-      navigate(gamePath);
-
+    navigate(gamePath);
   };
 
   return (
     <div
       style={{
-        minHeight: "calc(100vh - 200px)", // adjust to leave space for header/footer
+        minHeight: "calc(100vh - 200px)",
         display: "flex",
         flexDirection: "column",
-        justifyContent: "center",       // vertically center the content
-        alignItems: "center",           // horizontally center the content
-        padding: "40px",
-        textAlign: "center",
+        alignItems: "flex-start",  
+        padding: "40px 80px",  
+        marginTop: "120px"     
       }}
     >
-      <h2>Games</h2>
-      <p>Click a game to start playing!</p>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: "20px",
-          marginTop: "20px",
-        }}
-      >
-            <button
+      <h2 style={{ marginBottom: "30px" }}>Your Courses</h2>
+
+     
+      <div style={{ marginBottom: "40px" }}>
+        <p style={{ fontSize: "20px", fontWeight: "bold", marginBottom: "10px" }}>
+          Science
+        </p>
+        <p style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "10px", color: "grey"}}>
+           <em>Assignments:</em>
+        </p>
+
+                <button
         onClick={() => handleGameClick("/matching-game")}
         style={{
           marginTop: "20px",
@@ -52,6 +45,18 @@ export default function Games({ user }) {
       >
         Matching Game
       </button>
+      </div>
+
+      
+      <div style={{ marginBottom: "40px" }}>
+        <p style={{ fontSize: "20px", fontWeight: "bold", marginBottom: "10px" }}>
+          Math
+        </p>
+          <p style={{ fontSize: "15px", fontWeight: "bold", marginBottom: "10px", color: "grey"}}>
+          <em>Assignments:</em>
+        </p>
+
+          
                <button
         onClick={() => handleGameClick("/BingoGame")}
         style={{
@@ -67,7 +72,6 @@ export default function Games({ user }) {
       >
         Bingo Game
       </button>
-       
       </div>
     </div>
   );
