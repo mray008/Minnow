@@ -3,7 +3,7 @@ import { useState } from "react";
 import { validatePassword, displayPasswordRequirements } from "./PassChange.jsx";
 import "./ChangePasswordForm.css";
 //const BACKEND_URL = "http://localhost:5000";
-const BACKEND_URL = "https://minnow.onrender.com";
+const BACKEND_URL = "https://minnow-p3v2.onrender.com";
 // The above line was commented  and placed here to replace the localhost:5000
 
 export default function ChangePasswordForm({ user }) {
