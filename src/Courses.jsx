@@ -1,6 +1,6 @@
 import React from "react";
-import "./Courses.css"; // we’ll style it separately
-import mathImage from "./assets/math.jpg"; // replace with your image paths
+import "./Courses.css";
+import mathImage from "./assets/math.jpg"; 
 import englishImage from "./assets/english.png";
 import scienceImage from "./assets/science.jpeg";
 

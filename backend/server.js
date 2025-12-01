@@ -42,7 +42,7 @@ app.post("/login", (req, res) => {
 
 app.post("/register", (req, res) => {
   connection.execute(
-    "select * from user_information where username=?",
+    "select * from users where username=?",
     [
       req.body.username,
     ],
@@ -52,7 +52,7 @@ app.post("/register", (req, res) => {
       } else {
         if (result.length == 0) {
           connection.execute(
-            "insert into user_information (username,password,role) values (?,?,?)",
+            "insert into users (username,password,role) values (?,?,?)",
             [
               req.body.username,
               req.body.password,

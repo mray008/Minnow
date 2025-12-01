@@ -17,6 +17,7 @@ import EducatorDashboard from "./EducatorDashboard.jsx";
 import AdminDashboard from "./AdminDashboard.jsx";
 import Courses from "./Courses.jsx";
 import BingoGame from "./BingoGame.jsx";
+import Courses from "./Courses.jsx";
 
 function TopHeader() {
   return (
@@ -131,6 +132,7 @@ const [user, setUser] = useState({ name: "TestUser" });
           <Route path="/admin-dashboard" element={<AdminDashboard user={user} />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/BingoGame" element = {<BingoGame /> } />
+          <Route path="/Courses" element = {<Courses /> } />
         </Routes>
       </div>
       <ChatbotWrapper />

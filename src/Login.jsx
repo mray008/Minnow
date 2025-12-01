@@ -129,12 +129,21 @@ function LoginForm({ onLogin }) {
         </button>
       </form>
  
-      <button
-        type="button"
-        className="register-button"
+       <p>New to Minnow?</p>
+              <button
         onClick={() => navigate("/register")}
+        style={{
+          marginTop: "0px",
+          padding: "10px 20px",
+          fontSize: "1rem",
+          backgroundColor: "#3B2F2F",
+          color: "#fff",
+          border: "none",
+          borderRadius: "8px",
+          cursor: "pointer",
+        }}
       >
-        Register
+      Register
       </button>
     </div>
   );
