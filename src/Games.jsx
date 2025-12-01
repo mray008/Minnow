@@ -37,15 +37,37 @@ export default function Games({ user }) {
           marginTop: "20px",
         }}
       >
-        <button onClick={() => handleGameClick("/matching-game")}>
-          Matching Game
-        </button>
-        <button onClick={() => handleGameClick("/BingoGame")}>
-         Bingo
-        </button>
-        <button onClick={() => handleGameClick("/another-game")}>
-          Another Game
-        </button>
+            <button
+        onClick={() => handleGameClick("/matching-game")}
+        style={{
+          marginTop: "20px",
+          padding: "10px 20px",
+          fontSize: "1rem",
+          backgroundColor: "#3B2F2F",
+          color: "#fff",
+          border: "none",
+          borderRadius: "8px",
+          cursor: "pointer",
+        }}
+      >
+        Matching Game
+      </button>
+               <button
+        onClick={() => handleGameClick("/BingoGame")}
+        style={{
+          marginTop: "20px",
+          padding: "10px 20px",
+          fontSize: "1rem",
+          backgroundColor: "#3B2F2F",
+          color: "#fff",
+          border: "none",
+          borderRadius: "8px",
+          cursor: "pointer",
+        }}
+      >
+        Bingo Game
+      </button>
+       
       </div>
     </div>
   );
